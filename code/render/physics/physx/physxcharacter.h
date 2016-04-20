@@ -14,6 +14,7 @@ namespace physx
 {
 	class PxController;
 	class PxControllerFilters;
+	struct PxFilterData;
 }
 
 //------------------------------------------------------------------------------
@@ -59,6 +60,8 @@ public:
 
 	///
 	virtual void SetCollideCategory(Physics::CollideCategory coll);
+	/// set collision filter
+	virtual void SetCollideFilter(uint coll);
     /// set crouching
     virtual void SetCrouching(bool enable);
 
@@ -83,6 +86,7 @@ protected:
 	friend class CharacterHitReport;
 	physx::PxController* controller;
 	physx::PxControllerFilters *filters;
+	physx::PxFilterData *filterData;
 
 	float jumpForce;
 	float jumpHeight;	

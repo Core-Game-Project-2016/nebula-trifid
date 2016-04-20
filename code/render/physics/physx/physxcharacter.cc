@@ -13,6 +13,7 @@
 #include "PxSceneLock.h"
 #include "physxutils.h"
 #include "PxQueryFiltering.h"
+#include "PxFiltering.h"
 
 using namespace Physics;
 using namespace Math;
@@ -128,8 +129,10 @@ PhysXCharacter::Attach(Physics::BaseScene* world)
 	actor->userData = this;
 	PxShape* ctrlShape;
 	actor->getShapes(&ctrlShape, 1);
-	ctrlShape->setFlag(PxShapeFlag::eSCENE_QUERY_SHAPE, false);		
-	this->filters = n_new(physx::PxControllerFilters());	
+	ctrlShape->setFlag(PxShapeFlag::eSCENE_QUERY_SHAPE, false);	
+
+	this->filterData = n_new(physx::PxFilterData());
+	this->filters = n_new(physx::PxControllerFilters(this->filterData));	
 	this->lastFrame = PhysXServer::Instance()->GetTime();	
 	this->SetTransform(this->transform);
 }
@@ -377,6 +380,16 @@ PhysXCharacter::SetCollideCategory(Physics::CollideCategory coll)
 {
 	BaseCharacter::SetCollideCategory(coll);
 	PhysXScene::SetCollideCategory(this->controller->getActor(), coll);
+}
+
+//------------------------------------------------------------------------------
+/**
+*/
+void
+PhysXCharacter::SetCollideFilter(uint coll)
+{
+	BaseCharacter::SetCollideFilter(coll);
+	this->filterData->word0 = coll;
 }
 
 //------------------------------------------------------------------------------

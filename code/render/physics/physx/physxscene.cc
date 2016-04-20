@@ -317,7 +317,16 @@ void
 PhysXScene::SetCollideCategory(physx::PxRigidActor* actor, Physics::CollideCategory coll)
 {
 	n_assert(coll < 65536);
-	PxSetGroup(*actor, coll);
+
+	uint collTemp = coll;
+	uint collBit = 1;
+	if (collTemp > 0)
+	{
+		while ((collTemp >>= 1) > 0)
+			++collBit;
+	}
+
+	PxSetGroup(*actor, collBit);
 	for (unsigned int i = 0;i < actor->getNbShapes();i++)
 	{
 		PxShape * shape;
