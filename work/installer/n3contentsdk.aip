@@ -18,10 +18,10 @@
     <ROW Property="ARPURLUPDATEINFO" Value="nebulatrifid.org"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:3"/>
     <ROW Property="Manufacturer" Value="gscept"/>
-    <ROW Property="ProductCode" Value="1033:{6E824EDB-A91C-47F1-8880-14862A757069} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{570647BD-C394-4643-A450-A234BC1C0AE4} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Nebula Trifid SDK"/>
-    <ROW Property="ProductVersion" Value="0.3.30" Type="32"/>
+    <ROW Property="ProductVersion" Value="0.3.41" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{021B66E5-9A59-4AFB-A324-719C1EBA3E07}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -208,12 +208,12 @@
     <ROW File="Multiply.ndv" Component_="Add.ndv" FileName="Multiply.ndv" Attributes="0" SourcePath="work\shady\variations\Math\Multiply.ndv" SelfReg="false" NextFile="Normalize.ndv"/>
     <ROW File="Normalize.ndv" Component_="Add.ndv" FileName="NORMAL~1.NDV|Normalize.ndv" Attributes="0" SourcePath="work\shady\variations\Math\Normalize.ndv" SelfReg="false" NextFile="Sin.ndv"/>
     <ROW File="ObjectId.ndv" Component_="GlobalLightColor.ndv" FileName="ObjectId.ndv" Attributes="0" SourcePath="work\shady\variations\System\ObjectId.ndv" SelfReg="false" NextFile="Random.ndv"/>
-    <ROW File="PhysX3CHECKED_x86.dll" Component_="PhysX3CHECKED_x86.dll" FileName="PHYSX3~1.DLL|PhysX3CHECKED_x86.dll" Attributes="0" SourcePath="PhysxSDK\Bin\vc12win32\PhysX3CHECKED_x86.dll" SelfReg="false" NextFile="freecamera.xml"/>
-    <ROW File="PhysX3CharacterKinematicCHECKED_x86.dll" Component_="PhysX3CharacterKinematicCHECKED_x86.dll" FileName="PHYSX3~3.DLL|PhysX3CharacterKinematicCHECKED_x86.dll" Attributes="0" SourcePath="PhysxSDK\Bin\vc12win32\PhysX3CharacterKinematicCHECKED_x86.dll" SelfReg="false" NextFile="PhysX3Common_x86.dll"/>
-    <ROW File="PhysX3CommonCHECKED_x86.dll" Component_="PhysX3CommonCHECKED_x86.dll" FileName="PHYSX3~5.DLL|PhysX3CommonCHECKED_x86.dll" Attributes="0" SourcePath="PhysxSDK\Bin\vc12win32\PhysX3CommonCHECKED_x86.dll" SelfReg="false" NextFile="PhysX3Cooking_x86.dll"/>
-    <ROW File="PhysX3Common_x86.dll" Component_="PhysX3Common_x86.dll" FileName="PHYSX3~4.DLL|PhysX3Common_x86.dll" Attributes="0" SourcePath="PhysxSDK\Bin\vc12win32\PhysX3Common_x86.dll" SelfReg="false" NextFile="PhysX3CommonCHECKED_x86.dll"/>
-    <ROW File="PhysX3CookingCHECKED_x86.dll" Component_="PhysX3CookingCHECKED_x86.dll" FileName="PHYSX3~7.DLL|PhysX3CookingCHECKED_x86.dll" Attributes="0" SourcePath="PhysxSDK\Bin\vc12win32\PhysX3CookingCHECKED_x86.dll" SelfReg="false" NextFile="PhysX3CHECKED_x86.dll"/>
-    <ROW File="PhysX3Cooking_x86.dll" Component_="PhysX3Cooking_x86.dll" FileName="PHYSX3~6.DLL|PhysX3Cooking_x86.dll" Attributes="0" SourcePath="PhysxSDK\Bin\vc12win32\PhysX3Cooking_x86.dll" SelfReg="false" NextFile="PhysX3CookingCHECKED_x86.dll"/>
+    <ROW File="PhysX3CHECKED_x86.dll" Component_="PhysX3CHECKED_x86.dll" FileName="PHYSX3~1.DLL|PhysX3CHECKED_x86.dll" Attributes="0" SourcePath="bin\win32\PhysX3CHECKED_x86.dll" SelfReg="false" NextFile="freecamera.xml"/>
+    <ROW File="PhysX3CharacterKinematicCHECKED_x86.dll" Component_="PhysX3CharacterKinematicCHECKED_x86.dll" FileName="PHYSX3~3.DLL|PhysX3CharacterKinematicCHECKED_x86.dll" Attributes="0" SourcePath="bin\win32\PhysX3CharacterKinematicCHECKED_x86.dll" SelfReg="false" NextFile="PhysX3Common_x86.dll"/>
+    <ROW File="PhysX3CommonCHECKED_x86.dll" Component_="PhysX3CommonCHECKED_x86.dll" FileName="PHYSX3~5.DLL|PhysX3CommonCHECKED_x86.dll" Attributes="0" SourcePath="bin\win32\PhysX3CommonCHECKED_x86.dll" SelfReg="false" NextFile="PhysX3Cooking_x86.dll"/>
+    <ROW File="PhysX3Common_x86.dll" Component_="PhysX3Common_x86.dll" FileName="PHYSX3~4.DLL|PhysX3Common_x86.dll" Attributes="0" SourcePath="bin\win32\PhysX3Common_x86.dll" SelfReg="false" NextFile="PhysX3CommonCHECKED_x86.dll"/>
+    <ROW File="PhysX3CookingCHECKED_x86.dll" Component_="PhysX3CookingCHECKED_x86.dll" FileName="PHYSX3~7.DLL|PhysX3CookingCHECKED_x86.dll" Attributes="0" SourcePath="bin\win32\PhysX3CookingCHECKED_x86.dll" SelfReg="false" NextFile="PhysX3CHECKED_x86.dll"/>
+    <ROW File="PhysX3Cooking_x86.dll" Component_="PhysX3Cooking_x86.dll" FileName="PHYSX3~6.DLL|PhysX3Cooking_x86.dll" Attributes="0" SourcePath="bin\win32\PhysX3Cooking_x86.dll" SelfReg="false" NextFile="PhysX3CookingCHECKED_x86.dll"/>
     <ROW File="Random.ndv" Component_="GlobalLightColor.ndv" FileName="Random.ndv" Attributes="0" SourcePath="work\shady\variations\System\Random.ndv" SelfReg="false" NextFile="Time.ndv"/>
     <ROW File="Sample2D.ndv" Component_="Sample2D.ndv" FileName="Sample2D.ndv" Attributes="0" SourcePath="work\shady\variations\Texture\Sample2D.ndv" SelfReg="false" NextFile="Sample2DFixedMip.ndv"/>
     <ROW File="Sample2DFixedMip.ndv" Component_="Sample2D.ndv" FileName="SAMPLE~1.NDV|Sample2DFixedMip.ndv" Attributes="0" SourcePath="work\shady\variations\Texture\Sample2DFixedMip.ndv" SelfReg="false" NextFile="Sample2DUV.ndv"/>
@@ -443,7 +443,7 @@
     <ROW File="nobump.psd" Component_="bigbox.attributes" FileName="nobump.psd" Attributes="0" SourcePath="work\assets\system\nobump.psd" SelfReg="false" NextFile="nobump.xml"/>
     <ROW File="nobump.xml" Component_="bigbox.attributes" FileName="nobump.xml" Attributes="0" SourcePath="work\assets\system\nobump.xml" SelfReg="false" NextFile="noise.psd"/>
     <ROW File="noise.psd" Component_="bigbox.attributes" FileName="noise.psd" Attributes="0" SourcePath="work\assets\system\noise.psd" SelfReg="false" NextFile="particle_unlit.sur"/>
-    <ROW File="nvToolsExt32_1.dll" Component_="nvToolsExt32_1.dll" FileName="NVTOOL~1.DLL|nvToolsExt32_1.dll" Attributes="0" SourcePath="PhysxSDK\Bin\vc12win32\nvToolsExt32_1.dll" SelfReg="false" NextFile="PhysX3CharacterKinematicCHECKED_x86.dll"/>
+    <ROW File="nvToolsExt32_1.dll" Component_="nvToolsExt32_1.dll" FileName="NVTOOL~1.DLL|nvToolsExt32_1.dll" Attributes="0" SourcePath="bin\win32\nvToolsExt32_1.dll" SelfReg="false" NextFile="PhysX3CharacterKinematicCHECKED_x86.dll"/>
     <ROW File="ogl4default.xml" Component_="csmshadowmapping.xml" FileName="OGL4DE~1.XML|ogl4default.xml" Attributes="0" SourcePath="work\frame\win32\ogl4default.xml" SelfReg="false" NextFile="picking.xml"/>
     <ROW File="particle.fx" Component_="animated.fx" FileName="particle.fx" Attributes="0" SourcePath="work\shaders\fx\particle.fx" SelfReg="false" NextFile="picking.fx"/>
     <ROW File="particle.fx_1" Component_="animated.fx_1" FileName="particle.fx" Attributes="0" SourcePath="work\shaders\gl\particle.fx" SelfReg="false" NextFile="picking.fx_1"/>
