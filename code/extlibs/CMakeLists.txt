@@ -59,7 +59,8 @@ IF(NOT N_BUILD_FIRSTTIME)
 	add_subdirectory(cjson)
 	
 	
-    add_subdirectory(librocket)    
+    add_subdirectory(librocket)
+	add_subdirectory(awesomium)    
 
     IF(N_BUILD_QT)
         add_subdirectory(libqimg)
