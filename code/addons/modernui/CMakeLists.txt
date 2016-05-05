@@ -21,6 +21,10 @@ set(SOURCES_files_modernui__awesomium
 	awesomium/awesomiumserver.h
 	awesomium/awesomiumelement.cc
 	awesomium/awesomiumelement.h
+	awesomium/awesomiumsurface.cc
+	awesomium/awesomiumsurface.h
+	awesomium/awesomiumsurfacefactory.cc
+	awesomium/awesomiumsurfacefactory.h
 )
 source_group("modernui\\awesomium" FILES ${SOURCES_files_modernui__awesomium})
 
@@ -31,6 +35,8 @@ set(SOURCES_modernui__awesomium
 set(SOURCES_files_modernui
 	modernuirtplugin.cc
 	modernuirtplugin.h
+	modernuiinputhandler.cc
+	modernuiinputhandler.h
 )
 source_group("modernui" FILES ${SOURCES_files_modernui})
 

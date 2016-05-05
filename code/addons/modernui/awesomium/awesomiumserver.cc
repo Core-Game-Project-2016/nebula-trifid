@@ -11,6 +11,8 @@ AwesomiumServer::AwesomiumServer()
 {
 	__ConstructSingleton;
 	this->webCore = Awesomium::WebCore::Initialize(Awesomium::WebConfig());
+	this->factory = new AwesomiumSurfaceFactory();
+	this->webCore->set_surface_factory(this->factory);
 }
 
 AwesomiumServer::~AwesomiumServer()
@@ -21,13 +23,14 @@ AwesomiumServer::~AwesomiumServer()
 	}
 
 	Awesomium::WebCore::Shutdown();
+	delete this->factory;
 	__DestructSingleton;
 }
 
 AwesomiumLayout* AwesomiumServer::CreateView(uint width, uint height)
 {
 	Ptr<AwesomiumLayout> view = AwesomiumLayout::Create();
-	view->Setup(this->webCore->CreateWebView(width, height), width, height);
+	view->Setup(this->webCore->CreateWebView(width, height));
 	this->views.Append(view);
 	return view;
 }
@@ -45,6 +48,11 @@ void AwesomiumServer::Resize(SizeT width, SizeT height)
 void AwesomiumServer::Update() const
 {
 	this->webCore->Update();
+}
+
+bool AwesomiumServer::HandleInput(const Input::InputEvent& inputEvent)
+{
+	throw std::logic_error("The method or operation is not implemented.");
 }
 
 }

@@ -18,6 +18,7 @@
 #include "core/singleton.h"
 #include "core/refcounted.h"
 #include "ui/base/uiserverbase.h"
+#include "awesomiumsurfacefactory.h"
 
 namespace AwesomiumUI
 {
@@ -42,8 +43,10 @@ namespace AwesomiumUI
 
 		const Util::Array<Ptr<AwesomiumLayout>>& GetViews() const;
 
+		bool HandleInput(const Input::InputEvent& inputEvent);
 	private:
 		Awesomium::WebCore* webCore;
+		AwesomiumSurfaceFactory* factory;
 		Util::Array<Ptr<AwesomiumLayout>> views;
 	};
 

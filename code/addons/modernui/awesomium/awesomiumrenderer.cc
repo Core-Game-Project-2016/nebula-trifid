@@ -29,20 +29,11 @@ AwesomiumRenderer::AwesomiumRenderer()
 	this->renderDevice = RenderDevice::Instance();
 
 	// get shader and create instance
-	this->shader = shaderServer->GetShader("shd:gui");
+	this->shader = shaderServer->GetShader("shd:modernui");
 
 	// get texture
 	this->diffMap = this->shader->GetVariableByName("Texture");
 	this->modelVar = this->shader->GetVariableByName("Model");
-
-	// we get the white texture for when we don't have a diffuse map, this will be then be our default
-	this->whiteTexture = ResourceManager::Instance()->CreateManagedResource(Texture::RTTI, "tex:system/white.dds").downcast<ManagedTexture>();
-
-	// get variations
-	this->defaultVariation = shaderServer->FeatureStringToMask("Static");
-	this->scissorVariation = shaderServer->FeatureStringToMask("Static|Alt0");
-
-
 }
 
 AwesomiumRenderer::~AwesomiumRenderer()
@@ -62,15 +53,8 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 	// only render if texture is loaded
 	if (geometry)
 	{
-		if (geometry->texture.isvalid())
-		{
-			// set texture
-			this->diffMap->SetTexture(static_cast<Texture*>(geometry->texture));
-		}
-		else
-		{
-			this->diffMap->SetTexture(this->whiteTexture->GetTexture());
-		}
+		// set texture
+		this->diffMap->SetTexture(view->GetSurface()->GetTexture());
 
 		// apply shader
 		shaderServer->SetActiveShader(this->shader);

@@ -15,11 +15,11 @@
 
 #include <Awesomium/WebCore.h>
 #include <Awesomium/WebURL.h>
-#include <Awesomium/BitmapSurface.h>
 
 #include "core/rttimacros.h"
 #include "core/refcounted.h"
 #include <coregraphics/vertexbuffer.h>
+#include "awesomiumsurface.h"
 
 namespace AwesomiumUI
 {
@@ -29,7 +29,6 @@ namespace AwesomiumUI
 	{
 		Ptr<CoreGraphics::VertexBuffer> vb;
 		Ptr<CoreGraphics::IndexBuffer> ib;
-		Ptr<CoreGraphics::Texture> texture;
 		CoreGraphics::PrimitiveGroup primGroup;
 	};
 
@@ -40,7 +39,7 @@ namespace AwesomiumUI
 		friend class AwesomiumServer;
 	public:
 		AwesomiumLayout();
-		void Setup(Awesomium::WebView* view, uint width, uint height);
+		void Setup(Awesomium::WebView* view);
 		~AwesomiumLayout();
 
 		/// returns true if the layout is visible
@@ -62,7 +61,7 @@ namespace AwesomiumUI
 		/// set focus or disable focus on layout
 		void SetFocus(bool focus);
 
-		Awesomium::BitmapSurface* GetSurface() const;
+		AwesomiumSurface* GetSurface() const;
 
 		const Math::float4& GetPosition() const;
 		NebulaGeometry* GetGeometry();
@@ -71,7 +70,6 @@ namespace AwesomiumUI
 		struct NebulaVertex
 		{
 			float x, y;
-			byte r, g, b, a;
 			float u, v;
 		};
 
@@ -82,8 +80,6 @@ namespace AwesomiumUI
 		Awesomium::WebView* view;
 		NebulaGeometry* geometry;
 		Math::float4 position;
-		uint width;
-		uint height;
 		Math::float2 dimentions;
 
 		bool hasFocus;

@@ -19,49 +19,16 @@ AwesomiumLayout::AwesomiumLayout()
 	
 }
 
-void AwesomiumLayout::GenerateTexture()
-{
-	Awesomium::BitmapSurface* surface = this->GetSurface();
-
-	if (surface)
-	{
-		this->geometry->texture = CoreGraphics::Texture::Create();
-		Ptr<CoreGraphics::MemoryTextureLoader> loader = CoreGraphics::MemoryTextureLoader::Create();
-
-		int width = surface->width();
-		int height = surface->height();
-		int channels = 4;
-
-		unsigned char* data = new unsigned char[width * height * channels];
-		surface->CopyTo(data, width * 4, channels, true, false);
-
-		loader->SetImageBuffer(data, width, height, CoreGraphics::PixelFormat::SRGBA8);
-		this->geometry->texture->SetLoader(loader.upcast<Resources::ResourceLoader>());
-		this->geometry->texture->SetAsyncEnabled(false);
-		this->geometry->texture->Load();
-		n_assert(this->geometry->texture->IsLoaded());
-		this->geometry->texture->SetResourceId("AwesomiumUI");
-		Resources::ResourceManager::Instance()->RegisterUnmanagedResource(this->geometry->texture.upcast<Resources::Resource>());
-		this->geometry->texture->SetLoader(0);
-
-		delete[] data;
-	}
-}
-
 void AwesomiumLayout::GenerateMesh()
 {
 	this->geometry = static_cast<NebulaGeometry*>(Alloc(Memory::DefaultHeap, sizeof(NebulaGeometry)));
 	Memory::Clear(this->geometry, sizeof(NebulaGeometry));
-
-	// set texture
-	//this->GenerateTexture();
 
 	// create vertex buffer
 	this->geometry->vb = CoreGraphics::VertexBuffer::Create();
 
 	Util::Array<CoreGraphics::VertexComponent> vertexComponents;
 	vertexComponents.Append(CoreGraphics::VertexComponent(static_cast<CoreGraphics::VertexComponent::SemanticName>(0), 0, CoreGraphics::VertexComponent::Float2));     // position
-	vertexComponents.Append(CoreGraphics::VertexComponent(static_cast<CoreGraphics::VertexComponent::SemanticName>(1), 0, CoreGraphics::VertexComponent::UByte4N));    // color
 	vertexComponents.Append(CoreGraphics::VertexComponent(static_cast<CoreGraphics::VertexComponent::SemanticName>(2), 0, CoreGraphics::VertexComponent::Float2));     // UV
 
 	int indices[] = 
@@ -72,10 +39,10 @@ void AwesomiumLayout::GenerateMesh()
 
 	NebulaVertex vertices[4] =
 	{
-		{  0, 0,	255, 255, 255, 255,		0, 0 },
-		{  0, 1,	255, 255, 255, 255,		0, 1 },
-		{  1, 1,	255, 255, 255, 255,		1, 1 },
-		{  1, 0,	255, 255, 255, 255,		1, 0 }
+		{  0, 0,	0, 0 },
+		{  0, 1,	0, 1 },
+		{  1, 1,	1, 1 },
+		{  1, 0,	1, 0 }
 	};
 
 	int numVertices = 4;
@@ -86,7 +53,7 @@ void AwesomiumLayout::GenerateMesh()
 	vbLoader->Setup(vertexComponents,
 		numVertices,
 		vertices,
-		numVertices * sizeof(float) * 4 + numVertices * sizeof(unsigned char) * 4,
+		numVertices * sizeof(float) * 4,
 		Base::ResourceBase::UsageImmutable,
 		Base::ResourceBase::AccessNone);
 	this->geometry->vb->SetLoader(vbLoader.upcast<Resources::ResourceLoader>());
@@ -120,12 +87,12 @@ void AwesomiumLayout::GenerateMesh()
 }
 
 void
-	AwesomiumLayout::Setup(Awesomium::WebView* view, uint width, uint height)
+	AwesomiumLayout::Setup(Awesomium::WebView* view)
 {
 	this->visible = true;
 	this->view = view;
-	this->width = width;
-	this->height = height;
+	//Keep CSS transparency
+	this->view->SetTransparent(true);
 	this->hasFocus = false;
 	this->position = Math::float4(0.0f, 0.0f, 0.0f, 1.0f);
 	this->GenerateMesh();
@@ -138,32 +105,6 @@ AwesomiumLayout::~AwesomiumLayout()
 
 void AwesomiumLayout::Update()
 {
-	Awesomium::BitmapSurface* surface = this->GetSurface();
-	static bool hack = false;
-	if (surface && !hack)
-	{
-		GenerateTexture();
-		hack = true;
-	}
-	else if (hack)
-	{
-		Awesomium::BitmapSurface* surface = this->GetSurface();
-
-		if (surface)
-		{
-			Ptr<CoreGraphics::MemoryTextureLoader> loader = CoreGraphics::MemoryTextureLoader::Create();
-
-			int width = surface->width();
-			int height = surface->height();
-			int channels = 4;
-
-			unsigned char* data = new unsigned char[width * height * channels];
-			surface->CopyTo(data, width * 4, channels, true, false);
-
-			this->geometry->texture->Update(data, width * height * channels, width, height, 0, 0, 0);
-			delete[] data;
-		}
-	}
 	if(this->hasFocus)
 	{
 		//Inject Moude/Keyboard Events
@@ -192,9 +133,9 @@ void AwesomiumLayout::LoadURL(const Util::String& URL) const
 	}
 }
 
-Awesomium::BitmapSurface* AwesomiumLayout::GetSurface() const
+AwesomiumSurface* AwesomiumLayout::GetSurface() const
 {
-	return static_cast<Awesomium::BitmapSurface*>(this->view->surface());
+	return static_cast<AwesomiumSurface*>(this->view->surface());
 }
 
 bool AwesomiumLayout::HasFocus() const

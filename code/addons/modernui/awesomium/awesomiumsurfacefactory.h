@@ -13,18 +13,18 @@
 // ------------------------------------------------------------------------------------------------------------------------
 #pragma once
 
-#include "Awesomium/BitmapSurface.h"
+#include "Awesomium/Surface.h"
 
-namespace fate
+namespace AwesomiumUI
 {
-namespace ui
-{
-class OGLSurface
+class AwesomiumSurfaceFactory : public Awesomium::SurfaceFactory
 {
 public:
+	virtual Awesomium::Surface* CreateSurface(Awesomium::WebView* view, int width, int height) override;
+
+
+	virtual void DestroySurface(Awesomium::Surface* surface) override;
 
 private:
 };
 }
-}
-

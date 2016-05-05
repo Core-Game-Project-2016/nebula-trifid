@@ -36,11 +36,5 @@ private:
 
 	Ptr<CoreGraphics::ShaderVariable> diffMap;
 	Ptr<CoreGraphics::ShaderVariable> modelVar;
-
-	Ptr<Resources::ManagedTexture> whiteTexture;
-	Math::rectangle<int> scissor;
-
-	CoreGraphics::ShaderFeature::Mask defaultVariation;
-	CoreGraphics::ShaderFeature::Mask scissorVariation;
 };
 }

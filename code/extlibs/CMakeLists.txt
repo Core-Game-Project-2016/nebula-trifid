@@ -60,8 +60,11 @@ IF(NOT N_BUILD_FIRSTTIME)
 	
 	
     add_subdirectory(librocket)
-	add_subdirectory(awesomium)    
-
+	
+	IF(N_BUILD_AWESOMIUM)
+		add_subdirectory(awesomium)    
+	ENDIF()
+	
     IF(N_BUILD_QT)
         add_subdirectory(libqimg)
     ENDIF()
