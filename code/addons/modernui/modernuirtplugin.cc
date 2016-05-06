@@ -38,6 +38,8 @@ ModernUiRTPlugin::OnRegister()
 {
 	this->uiServer = AwesomiumUI::AwesomiumServer::Create();
 	this->uirenderer = AwesomiumUI::AwesomiumRenderer::Create();
+	this->uiInputHandler = UI::ModernUiInputHandler::Create();
+	//Input::InputServer::Instance()->AttachInputHandler(Input::InputPriority::Gui, this->uiInputHandler.cast<Input::InputHandler>());
 }
 
 //------------------------------------------------------------------------------

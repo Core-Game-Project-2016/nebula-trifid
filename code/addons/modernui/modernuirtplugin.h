@@ -11,6 +11,7 @@
 #include "rendermodules/rt/rtplugin.h"
 #include "awesomium/awesomiumserver.h"
 #include "awesomium/awesomiumrenderer.h"
+#include "modernuiinputhandler.h"
 
 //------------------------------------------------------------------------------
 namespace UI
@@ -38,6 +39,7 @@ public:
 private:
 	Ptr<AwesomiumUI::AwesomiumRenderer> uirenderer;
 	Ptr<AwesomiumUI::AwesomiumServer> uiServer;
+	Ptr<UI::ModernUiInputHandler> uiInputHandler;
 };
 
 } // namespace UI
