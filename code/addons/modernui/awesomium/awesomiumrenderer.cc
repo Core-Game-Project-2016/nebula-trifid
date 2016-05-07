@@ -34,6 +34,8 @@ AwesomiumRenderer::AwesomiumRenderer()
 	// get texture
 	this->diffMap = this->shader->GetVariableByName("Texture");
 	this->modelVar = this->shader->GetVariableByName("Model");
+
+	this->whiteTexture = ResourceManager::Instance()->CreateManagedResource(Texture::RTTI, "tex:system/white.dds").downcast<ManagedTexture>();
 }
 
 AwesomiumRenderer::~AwesomiumRenderer()
@@ -50,11 +52,20 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 
 	NebulaGeometry* geometry = view->GetGeometry();
 
-	// only render if texture is loaded
 	if (geometry)
 	{
-		// set texture
-		this->diffMap->SetTexture(view->GetSurface()->GetTexture());
+		try
+		{
+			Ptr<Texture> texture = view->GetSurface()->GetTexture();
+			if (texture.isvalid())
+			{
+				this->diffMap->SetTexture(texture);
+			}
+		}
+		catch (...) // TODO REMOVE UGLY TEMP FIX
+		{
+			this->diffMap->SetTexture(this->whiteTexture->GetTexture());
+		}
 
 		// apply shader
 		shaderServer->SetActiveShader(this->shader);

@@ -103,21 +103,6 @@ AwesomiumLayout::~AwesomiumLayout()
 	this->view->Destroy();
 }
 
-void AwesomiumLayout::Update()
-{
-	if(this->hasFocus)
-	{
-		//Inject Moude/Keyboard Events
-
-		//this->view->InjectKeyboardEvent();
-
-		//this->view->InjectMouseDown();
-		//this->view->InjectMouseUp();
-		//this->view->InjectMouseMove();
-		//this->view->InjectMouseWheel();
-	}
-}
-
 bool AwesomiumLayout::IsLoaded() const
 {
 	return !this->view->IsLoading();
@@ -156,6 +141,78 @@ void AwesomiumLayout::SetFocus(bool focus)
 void AwesomiumLayout::SetSize(const Math::float2& size)
 {
 	this->dimentions = size;
+}
+
+void AwesomiumLayout::HandleInput(const Input::InputEvent& inputEvent)
+{
+	switch (inputEvent.GetType())
+	{
+	case Input::InputEvent::KeyDown:
+	{
+		Awesomium::WebKeyboardEvent kEvent;
+		kEvent.type = Awesomium::WebKeyboardEvent::Type::kTypeKeyDown;
+		kEvent.native_key_code = inputEvent.GetKey(); //TODO Convert to Awesomium Keycode
+		this->view->InjectKeyboardEvent(kEvent);
+		break;
+	}
+	case Input::InputEvent::KeyUp:
+	{
+		Awesomium::WebKeyboardEvent kEvent;
+		kEvent.type = Awesomium::WebKeyboardEvent::Type::kTypeKeyUp;
+		kEvent.native_key_code = inputEvent.GetKey(); //TODO Convert to Awesomium Keycode
+		this->view->InjectKeyboardEvent(kEvent);
+		break;
+	}
+	case Input::InputEvent::Character:
+	{
+		Awesomium::WebKeyboardEvent kEvent;
+		kEvent.type = Awesomium::WebKeyboardEvent::Type::kTypeChar;
+		kEvent.native_key_code = inputEvent.GetKey();
+		this->view->InjectKeyboardEvent(kEvent);
+		break;
+	}
+	case Input::InputEvent::MouseButtonDown:
+	{
+		switch (inputEvent.GetMouseButton())
+		{
+		case Input::MouseButton::LeftButton:
+			this->view->InjectMouseDown(Awesomium::MouseButton::kMouseButton_Left);
+			break;
+		case Input::MouseButton::RightButton:
+			this->view->InjectMouseDown(Awesomium::MouseButton::kMouseButton_Right);
+			break;
+		case Input::MouseButton::MiddleButton:
+			this->view->InjectMouseDown(Awesomium::MouseButton::kMouseButton_Middle);
+			break;
+		}
+		break;
+	}
+	case Input::InputEvent::MouseButtonUp:
+	{
+		switch (inputEvent.GetMouseButton())
+		{
+		case Input::MouseButton::LeftButton:
+			this->view->InjectMouseUp(Awesomium::MouseButton::kMouseButton_Left);
+			break;
+		case Input::MouseButton::RightButton:
+			this->view->InjectMouseUp(Awesomium::MouseButton::kMouseButton_Right);
+			break;
+		case Input::MouseButton::MiddleButton:
+			this->view->InjectMouseUp(Awesomium::MouseButton::kMouseButton_Middle);
+			break;
+		}
+		break;
+	}
+	case Input::InputEvent::MouseMove:
+		this->view->InjectMouseMove(static_cast<int>(inputEvent.GetAbsMousePos().x()), static_cast<int>(inputEvent.GetAbsMousePos().y()));
+		break;
+	case Input::InputEvent::MouseWheelForward:
+		this->view->InjectMouseWheel(-1, 0);
+		break;
+	case Input::InputEvent::MouseWheelBackward:
+		this->view->InjectMouseWheel(1, 0);
+		break;
+	}
 }
 
 }

@@ -20,6 +20,7 @@
 #include "core/refcounted.h"
 #include <coregraphics/vertexbuffer.h>
 #include "awesomiumsurface.h"
+#include "input/inputevent.h"
 
 namespace AwesomiumUI
 {
@@ -50,8 +51,6 @@ namespace AwesomiumUI
 		void Hide();
 		/// set size of layout
 		void SetSize(const Math::float2& size);
-		/// updates
-		void Update();
 		/// returns true if the layout is loaded
 		bool IsLoaded() const;
 		/// loads the specified url. use file://C:/ChickenNoodles for local paths
@@ -60,6 +59,8 @@ namespace AwesomiumUI
 		bool HasFocus() const;
 		/// set focus or disable focus on layout
 		void SetFocus(bool focus);
+
+		void HandleInput(const Input::InputEvent& inputEvent);
 
 		AwesomiumSurface* GetSurface() const;
 

@@ -52,7 +52,15 @@ void AwesomiumServer::Update() const
 
 bool AwesomiumServer::HandleInput(const Input::InputEvent& inputEvent)
 {
-	throw std::logic_error("The method or operation is not implemented.");
+	for (SizeT i = 0; i < this->views.Size(); i++)
+	{
+		if (this->views[i]->HasFocus())
+		{
+			this->views[i]->HandleInput(inputEvent);
+			return true;
+		}
+	}
+	return false;
 }
 
 }

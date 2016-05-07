@@ -1,6 +1,6 @@
 // ------------------------------------------------------------------------------------------------------------------------
 // 
-// File:  OGLSurface.h
+// File:  AwesomiumSurfaceFactory.h
 // 
 // Author: Timmy Silesmo
 // Creation Date: 9:38 PM - 03/05/2016

@@ -36,5 +36,7 @@ private:
 
 	Ptr<CoreGraphics::ShaderVariable> diffMap;
 	Ptr<CoreGraphics::ShaderVariable> modelVar;
+
+	Ptr<Resources::ManagedTexture> whiteTexture;
 };
 }

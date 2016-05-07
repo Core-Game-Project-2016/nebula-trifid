@@ -6,6 +6,7 @@
 #include "modernuirtplugin.h"
 #include "frame/framebatch.h"
 #include "core/rttimacros.h"
+#include "input/inputserver.h"
 
 
 namespace UI
@@ -39,7 +40,7 @@ ModernUiRTPlugin::OnRegister()
 	this->uiServer = AwesomiumUI::AwesomiumServer::Create();
 	this->uirenderer = AwesomiumUI::AwesomiumRenderer::Create();
 	this->uiInputHandler = UI::ModernUiInputHandler::Create();
-	//Input::InputServer::Instance()->AttachInputHandler(Input::InputPriority::Gui, this->uiInputHandler.cast<Input::InputHandler>());
+	Input::InputServer::Instance()->AttachInputHandler(Input::InputPriority::Gui, this->uiInputHandler.cast<Input::InputHandler>());
 }
 
 //------------------------------------------------------------------------------
@@ -69,7 +70,6 @@ ModernUiRTPlugin::OnRenderFrameBatch(const Ptr<Frame::FrameBatch>& frameBatch)
 		{
 			if (views[i]->IsLoaded())
 			{
-				views[i]->Update();
 				this->uirenderer->Render(views[i]);
 			}
 		}
