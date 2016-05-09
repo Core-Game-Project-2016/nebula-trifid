@@ -19,7 +19,7 @@ AwesomiumServer::~AwesomiumServer()
 {
 	for (int i = 0; i < this->views.Size(); i++)
 	{
-		delete this->views[i];
+		delete this->views.ValueAtIndex(i);
 	}
 
 	Awesomium::WebCore::Shutdown();
@@ -27,11 +27,11 @@ AwesomiumServer::~AwesomiumServer()
 	__DestructSingleton;
 }
 
-AwesomiumLayout* AwesomiumServer::CreateView(uint width, uint height)
+AwesomiumLayout* AwesomiumServer::CreateView(const Util::String& name, uint width, uint height)
 {
 	Ptr<AwesomiumLayout> view = AwesomiumLayout::Create();
 	view->Setup(this->webCore->CreateWebView(width, height));
-	this->views.Append(view);
+	this->views.Add(name, view);
 	return view;
 }
 
@@ -54,9 +54,9 @@ bool AwesomiumServer::HandleInput(const Input::InputEvent& inputEvent)
 {
 	for (SizeT i = 0; i < this->views.Size(); i++)
 	{
-		if (this->views[i]->HasFocus())
+		if (this->views.ValueAtIndex(i)->HasFocus())
 		{
-			this->views[i]->HandleInput(inputEvent);
+			this->views.ValueAtIndex(i)->HandleInput(inputEvent);
 			return true;
 		}
 	}

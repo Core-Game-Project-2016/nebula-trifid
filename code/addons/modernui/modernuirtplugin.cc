@@ -64,13 +64,13 @@ ModernUiRTPlugin::OnRenderFrameBatch(const Ptr<Frame::FrameBatch>& frameBatch)
 		this->uiServer->Render(frameBatch);	
 		this->uiServer->Update();
 
-		Util::Array<Ptr<AwesomiumUI::AwesomiumLayout>> views = this->uiServer->GetViews();
+		Util::Dictionary<Util::String, Ptr<AwesomiumUI::AwesomiumLayout>> views = this->uiServer->GetViews();
 
 		for (int i = 0; i < views.Size(); i++)
 		{
-			if (views[i]->IsLoaded())
+			if (views.ValueAtIndex(i)->IsLoaded() && views.ValueAtIndex(i)->IsVisible())
 			{
-				this->uirenderer->Render(views[i]);
+				this->uirenderer->Render(views.ValueAtIndex(i));
 			}
 		}
 	}

@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------------------------------------------------
 #pragma once
 #include "core/types.h"
-#include "util/array.h"
+#include "util/dictionary.h"
 #include "awesomiumlayout.h"
 #include "Awesomium/WebCore.h"
 
@@ -30,7 +30,7 @@ namespace AwesomiumUI
 		AwesomiumServer();
 		~AwesomiumServer();
 
-		AwesomiumLayout* CreateView(uint width, uint height);
+		AwesomiumLayout* CreateView(const Util::String& name, uint width, uint height);
 
 		bool IsValid() const;
 		/// updates context
@@ -41,17 +41,22 @@ namespace AwesomiumUI
 		/// resize context
 		void Resize(SizeT width, SizeT height);
 
-		const Util::Array<Ptr<AwesomiumLayout>>& GetViews() const;
+		Ptr<AwesomiumLayout>& GetView(const Util::String& name);
+		const Util::Dictionary<Util::String, Ptr<AwesomiumLayout>>& GetViews() const;
 
 		bool HandleInput(const Input::InputEvent& inputEvent);
 	private:
 		Awesomium::WebCore* webCore;
 		AwesomiumSurfaceFactory* factory;
-		Util::Array<Ptr<AwesomiumLayout>> views;
+		Util::Dictionary<Util::String, Ptr<AwesomiumLayout>> views;
 	};
 
+	inline Ptr<AwesomiumLayout>& AwesomiumServer::GetView(const Util::String& name)
+	{
+		return this->views[name];
+	}
 
-	inline const Util::Array<Ptr<AwesomiumLayout>>& AwesomiumServer::GetViews() const
+	inline const Util::Dictionary<Util::String, Ptr<AwesomiumLayout>>& AwesomiumServer::GetViews() const
 	{
 		return this->views;
 	}

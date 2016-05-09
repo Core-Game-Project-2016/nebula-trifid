@@ -21,6 +21,7 @@
 #include <coregraphics/vertexbuffer.h>
 #include "awesomiumsurface.h"
 #include "input/inputevent.h"
+#include "awesomiumjsmethodhandler.h"
 
 namespace AwesomiumUI
 {
@@ -43,6 +44,9 @@ namespace AwesomiumUI
 		void Setup(Awesomium::WebView* view);
 		~AwesomiumLayout();
 
+		typedef void(*CallbackFunction);
+		typedef Awesomium::JSValue (*CallbackReturnFunction);
+
 		/// returns true if the layout is visible
 		bool IsVisible() const;
 		/// shows layout
@@ -62,10 +66,18 @@ namespace AwesomiumUI
 
 		void HandleInput(const Input::InputEvent& inputEvent);
 
+		void RegisterFunctionCallback(Util::String functionName, CallbackFunction function);
+		void RegisterFunctionReturnCallback(Util::String functionName, CallbackReturnFunction function);
+
 		AwesomiumSurface* GetSurface() const;
 
 		const Math::float4& GetPosition() const;
 		NebulaGeometry* GetGeometry();
+
+		AwesomiumJSMethodHandler* GetMethodHandler()
+		{
+			return this->methodHandler;
+		}
 
 	private:
 		struct NebulaVertex
@@ -79,6 +91,8 @@ namespace AwesomiumUI
 		
 
 		Awesomium::WebView* view;
+		AwesomiumJSMethodHandler* methodHandler;
+
 		NebulaGeometry* geometry;
 		Math::float4 position;
 		Math::float2 dimentions;

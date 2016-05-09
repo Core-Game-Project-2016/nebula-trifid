@@ -96,10 +96,14 @@ void
 	this->hasFocus = false;
 	this->position = Math::float4(0.0f, 0.0f, 0.0f, 1.0f);
 	this->GenerateMesh();
+	this->methodHandler = new AwesomiumJSMethodHandler();
+	this->methodHandler->Setup("src", this->view);
+	this->view->set_js_method_handler(methodHandler);
 }
 
 AwesomiumLayout::~AwesomiumLayout()
 {
+	delete this->methodHandler;
 	this->view->Destroy();
 }
 
