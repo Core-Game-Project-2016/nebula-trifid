@@ -10,7 +10,6 @@
 #include "frame/framebatch.h"
 #include "rendermodules/rt/rtplugin.h"
 #include "awesomium/awesomiumserver.h"
-#include "awesomium/awesomiumrenderer.h"
 #include "modernuiinputhandler.h"
 
 //------------------------------------------------------------------------------
@@ -37,7 +36,6 @@ public:
 	virtual void OnWindowResized(SizeT width, SizeT height);
 
 private:
-	Ptr<AwesomiumUI::AwesomiumRenderer> uirenderer;
 	Ptr<AwesomiumUI::AwesomiumServer> uiServer;
 	Ptr<UI::ModernUiInputHandler> uiInputHandler;
 };

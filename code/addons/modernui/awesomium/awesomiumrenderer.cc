@@ -56,10 +56,13 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 	{
 		try
 		{
-			Ptr<Texture> texture = view->GetSurface()->GetTexture();
-			if (texture.isvalid())
+			AwesomiumSurface* surface = view->GetSurface();
+			if (surface)
 			{
-				this->diffMap->SetTexture(texture);
+				Ptr<RenderDevice> device = RenderDevice::Instance();
+				device->SetScissorRect(surface->GetScissor(), 0);
+
+				this->diffMap->SetTexture(surface->GetTexture());
 			}
 		}
 		catch (...) // TODO REMOVE UGLY TEMP FIX

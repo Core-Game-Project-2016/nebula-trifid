@@ -20,12 +20,15 @@
 
 namespace AwesomiumUI
 {
+	class AwesomiumServer;
+	class AwesomiumLayout;
+
 	class AwesomiumJSMethodHandler : public Awesomium::JSMethodHandler
 	{
 	public:
 		AwesomiumJSMethodHandler();
 		~AwesomiumJSMethodHandler();
-		void Setup(const char* name, Awesomium::WebView* view);
+		void Setup(const Ptr<AwesomiumUI::AwesomiumLayout>& layout);
 
 		typedef void(*CallbackFunction)(Awesomium::WebView* caller, const Awesomium::JSArray& args);
 		typedef Awesomium::JSValue(*CallbackReturnFunction)(Awesomium::WebView* caller, const Awesomium::JSArray& args);
@@ -33,13 +36,8 @@ namespace AwesomiumUI
 		virtual void OnMethodCall(Awesomium::WebView* caller, unsigned int remote_object_id, const Awesomium::WebString& method_name, const Awesomium::JSArray& args) override;
 		virtual Awesomium::JSValue OnMethodCallWithReturnValue(Awesomium::WebView* caller, unsigned int remote_object_id, const Awesomium::WebString& method_name, const Awesomium::JSArray& args) override;
 
-		void RegisterFunctionCallback(Util::String functionName, CallbackFunction function);
-		void RegisterFunctionReturnCallback(Util::String functionName, CallbackReturnFunction function);
-
 	private:
-		Awesomium::JSObject object;
-
-		Util::Dictionary<Util::String, CallbackFunction> callbackFunctions;
-		Util::Dictionary<Util::String, CallbackReturnFunction> callbackReturnFunctions;
+		Ptr<AwesomiumUI::AwesomiumServer> server;
+		Ptr<AwesomiumUI::AwesomiumLayout> layout;
 	};
 }

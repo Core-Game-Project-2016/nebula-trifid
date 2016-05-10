@@ -9,16 +9,26 @@
 // 
 // ------------------------------------------------------------------------------------------------------------------------
 #pragma once
-#include "core/types.h"
 #include "util/dictionary.h"
-#include "awesomiumlayout.h"
-#include "Awesomium/WebCore.h"
 
+#include "core/types.h"
 #include "core/rttimacros.h"
 #include "core/singleton.h"
 #include "core/refcounted.h"
+
 #include "ui/base/uiserverbase.h"
+
+#include "Awesomium/WebCore.h"
+
 #include "awesomiumsurfacefactory.h"
+#include "awesomiumrenderer.h"
+#include "awesomiumlayout.h"
+
+#define __RegisterGlobalFunction(name, func) \
+	AwesomiumUI::AwesomiumServer::Instance()->RegisterGloabalFunctionCallback(name, func)
+
+#define __RegisterGlobalReturnFunction(name, func) \
+	AwesomiumUI::AwesomiumServer::Instance()->RegisterGloabalFunctionReturnCallback(name, func)
 
 namespace AwesomiumUI
 {
@@ -26,39 +36,43 @@ namespace AwesomiumUI
 	{
 		__DeclareClass(AwesomiumServer);
 		__DeclareSingleton(AwesomiumServer);
+		friend class AwesomiumUI::AwesomiumJSMethodHandler;
 	public:
+		typedef void(*CallbackFunction)(Awesomium::WebView* caller, const Awesomium::JSArray& args);
+		typedef Awesomium::JSValue(*CallbackReturnFunction)(Awesomium::WebView* caller, const Awesomium::JSArray& args);
+
 		AwesomiumServer();
 		~AwesomiumServer();
 
 		AwesomiumLayout* CreateView(const Util::String& name, uint width, uint height);
-
-		bool IsValid() const;
-		/// updates context
+		
 		void Update() const;
-		/// renders context
+		
 		void Render(const Ptr<Frame::FrameBatch>& frameBatch);
 
-		/// resize context
 		void Resize(SizeT width, SizeT height);
 
 		Ptr<AwesomiumLayout>& GetView(const Util::String& name);
-		const Util::Dictionary<Util::String, Ptr<AwesomiumLayout>>& GetViews() const;
 
 		bool HandleInput(const Input::InputEvent& inputEvent);
+
+		void RegisterGloabalFunctionCallback(Util::String functionName, CallbackFunction function);
+		void RegisterGloabalFunctionReturnCallback(Util::String functionName, CallbackReturnFunction function);
 	private:
 		Awesomium::WebCore* webCore;
 		AwesomiumSurfaceFactory* factory;
+
+		Ptr<AwesomiumUI::AwesomiumRenderer> renderer;
+
 		Util::Dictionary<Util::String, Ptr<AwesomiumLayout>> views;
+
+		Util::Dictionary<Util::String, CallbackFunction> globalCallbackFunctions;
+		Util::Dictionary<Util::String, CallbackReturnFunction> globalCallbackReturnFunctions;
 	};
 
 	inline Ptr<AwesomiumLayout>& AwesomiumServer::GetView(const Util::String& name)
 	{
 		return this->views[name];
-	}
-
-	inline const Util::Dictionary<Util::String, Ptr<AwesomiumLayout>>& AwesomiumServer::GetViews() const
-	{
-		return this->views;
 	}
 }
 

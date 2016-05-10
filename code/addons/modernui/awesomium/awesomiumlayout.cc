@@ -86,8 +86,7 @@ void AwesomiumLayout::GenerateMesh()
 	this->geometry->primGroup.SetPrimitiveTopology(CoreGraphics::PrimitiveTopology::TriangleList);
 }
 
-void
-	AwesomiumLayout::Setup(Awesomium::WebView* view)
+void AwesomiumLayout::Setup(Awesomium::WebView* view)
 {
 	this->visible = true;
 	this->view = view;
@@ -97,7 +96,7 @@ void
 	this->position = Math::float4(0.0f, 0.0f, 0.0f, 1.0f);
 	this->GenerateMesh();
 	this->methodHandler = new AwesomiumJSMethodHandler();
-	this->methodHandler->Setup("src", this->view);
+	this->methodHandler->Setup(this);
 	this->view->set_js_method_handler(methodHandler);
 }
 
@@ -116,10 +115,9 @@ void AwesomiumLayout::LoadURL(const Util::String& URL) const
 {
 	Awesomium::WebURL url(Awesomium::WSLit(URL.Get()));
 
-	if (url.IsValid())
-	{
-		this->view->LoadURL(url);
-	}
+	n_assert(url.IsValid());
+
+	this->view->LoadURL(url);
 }
 
 AwesomiumSurface* AwesomiumLayout::GetSurface() const
@@ -142,9 +140,9 @@ void AwesomiumLayout::SetFocus(bool focus)
 		this->view->Unfocus();
 }
 
-void AwesomiumLayout::SetSize(const Math::float2& size)
+void AwesomiumLayout::Resize(SizeT width, SizeT height)
 {
-	this->dimentions = size;
+	//TODO: Implement
 }
 
 void AwesomiumLayout::HandleInput(const Input::InputEvent& inputEvent)
@@ -211,12 +209,42 @@ void AwesomiumLayout::HandleInput(const Input::InputEvent& inputEvent)
 		this->view->InjectMouseMove(static_cast<int>(inputEvent.GetAbsMousePos().x()), static_cast<int>(inputEvent.GetAbsMousePos().y()));
 		break;
 	case Input::InputEvent::MouseWheelForward:
-		this->view->InjectMouseWheel(-1, 0);
+		this->view->InjectMouseWheel(50, 0);
 		break;
 	case Input::InputEvent::MouseWheelBackward:
-		this->view->InjectMouseWheel(1, 0);
+		this->view->InjectMouseWheel(-50, 0);
 		break;
 	}
+}
+
+void AwesomiumLayout::RegisterFunctionCallback(const Util::String& objectname, Util::String functionName, CallbackFunction function)
+{
+	Awesomium::JSObject object = this->objects.ValueAtIndex(this->objects.FindIndex(objectname));
+	object.SetCustomMethod(Awesomium::WSLit(functionName.Get()), false);
+
+	int index = this->callbackFunctions.FindIndex(object.remote_id());
+
+	if (index == InvalidIndex)
+	{
+		this->callbackFunctions.Add(object.remote_id(), Util::Dictionary<Util::String, CallbackFunction>());
+		index = this->callbackFunctions.FindIndex(object.remote_id());
+	}
+	this->callbackFunctions.ValueAtIndex(index).Add(functionName, function);
+}
+
+void AwesomiumLayout::RegisterFunctionReturnCallback(const Util::String& objectname, Util::String functionName, CallbackReturnFunction function)
+{
+	Awesomium::JSObject object = this->objects.ValueAtIndex(this->objects.FindIndex(objectname));
+	object.SetCustomMethod(Awesomium::WSLit(functionName.Get()), true);
+	
+	int index = this->callbackReturnFunctions.FindIndex(object.remote_id());
+
+	if (index == InvalidIndex)
+	{
+		this->callbackReturnFunctions.Add(object.remote_id(), Util::Dictionary<Util::String, CallbackReturnFunction>());
+		index = this->callbackReturnFunctions.FindIndex(object.remote_id());
+	}
+	this->callbackReturnFunctions.ValueAtIndex(index).Add(functionName, function);
 }
 
 }

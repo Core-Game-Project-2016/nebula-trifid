@@ -38,7 +38,6 @@ void
 ModernUiRTPlugin::OnRegister()
 {
 	this->uiServer = AwesomiumUI::AwesomiumServer::Create();
-	this->uirenderer = AwesomiumUI::AwesomiumRenderer::Create();
 	this->uiInputHandler = UI::ModernUiInputHandler::Create();
 	Input::InputServer::Instance()->AttachInputHandler(Input::InputPriority::Gui, this->uiInputHandler.cast<Input::InputHandler>());
 }
@@ -60,19 +59,8 @@ ModernUiRTPlugin::OnRenderFrameBatch(const Ptr<Frame::FrameBatch>& frameBatch)
 {
 	n_assert(this->uiServer.isvalid());
 	if (CoreGraphics::FrameBatchType::UI == frameBatch->GetType())
-	{				
+	{
 		this->uiServer->Render(frameBatch);	
-		this->uiServer->Update();
-
-		Util::Dictionary<Util::String, Ptr<AwesomiumUI::AwesomiumLayout>> views = this->uiServer->GetViews();
-
-		for (int i = 0; i < views.Size(); i++)
-		{
-			if (views.ValueAtIndex(i)->IsLoaded() && views.ValueAtIndex(i)->IsVisible())
-			{
-				this->uirenderer->Render(views.ValueAtIndex(i));
-			}
-		}
 	}
 }
 

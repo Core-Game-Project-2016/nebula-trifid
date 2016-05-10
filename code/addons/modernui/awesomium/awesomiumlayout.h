@@ -22,6 +22,7 @@
 #include "awesomiumsurface.h"
 #include "input/inputevent.h"
 #include "awesomiumjsmethodhandler.h"
+#include "Awesomium\STLHelpers.h"
 
 namespace AwesomiumUI
 {
@@ -39,13 +40,15 @@ namespace AwesomiumUI
 		__DeclareClass(AwesomiumLayout);
 
 		friend class AwesomiumServer;
+		friend class AwesomiumJSMethodHandler;
 	public:
+		typedef void(*CallbackFunction)(Awesomium::WebView* caller, const Awesomium::JSArray& args);
+		typedef Awesomium::JSValue(*CallbackReturnFunction)(Awesomium::WebView* caller, const Awesomium::JSArray& args);
+
+
 		AwesomiumLayout();
 		void Setup(Awesomium::WebView* view);
 		~AwesomiumLayout();
-
-		typedef void(*CallbackFunction);
-		typedef Awesomium::JSValue (*CallbackReturnFunction);
 
 		/// returns true if the layout is visible
 		bool IsVisible() const;
@@ -54,7 +57,7 @@ namespace AwesomiumUI
 		/// hide layout
 		void Hide();
 		/// set size of layout
-		void SetSize(const Math::float2& size);
+		void Resize(SizeT width, SizeT height);
 		/// returns true if the layout is loaded
 		bool IsLoaded() const;
 		/// loads the specified url. use file://C:/ChickenNoodles for local paths
@@ -66,8 +69,10 @@ namespace AwesomiumUI
 
 		void HandleInput(const Input::InputEvent& inputEvent);
 
-		void RegisterFunctionCallback(Util::String functionName, CallbackFunction function);
-		void RegisterFunctionReturnCallback(Util::String functionName, CallbackReturnFunction function);
+		void CreateGlobalJSObject(const Util::String& name);
+
+		void RegisterFunctionCallback(const Util::String& objectname, Util::String functionName, CallbackFunction function);
+		void RegisterFunctionReturnCallback(const Util::String& objectname, Util::String functionName, CallbackReturnFunction function);
 
 		AwesomiumSurface* GetSurface() const;
 
@@ -89,17 +94,27 @@ namespace AwesomiumUI
 		void GenerateTexture();
 		void GenerateMesh();
 		
+		Util::Dictionary<Util::String, Awesomium::JSObject> objects;
+
+		Util::Dictionary<int, Util::Dictionary<Util::String, CallbackFunction>> callbackFunctions;
+		Util::Dictionary<int, Util::Dictionary<Util::String, CallbackReturnFunction>> callbackReturnFunctions;
 
 		Awesomium::WebView* view;
 		AwesomiumJSMethodHandler* methodHandler;
 
 		NebulaGeometry* geometry;
 		Math::float4 position;
-		Math::float2 dimentions;
 
 		bool hasFocus;
 		bool visible;
 	};
+
+
+	inline void AwesomiumLayout::CreateGlobalJSObject(const Util::String& name)
+	{
+		Awesomium::JSObject object = this->view->CreateGlobalJavascriptObject(Awesomium::WSLit(name.Get())).ToObject();
+		this->objects.Add(name, object);
+	}
 
 	inline const Math::float4& AwesomiumLayout::GetPosition() const
 	{
