@@ -189,6 +189,8 @@ public:
     static Util::String ToString(Code code);
 	/// convert to cegui scan codes
 	static uint ToDirectInput(Code key);
+	// convert to awesomium scan codes
+	static uint Key::ToAwesomium(Code key);
 	/// convert to rocket scan codes
 	static uint ToRocket(Code key);
 	/// convert to rocket scan codes

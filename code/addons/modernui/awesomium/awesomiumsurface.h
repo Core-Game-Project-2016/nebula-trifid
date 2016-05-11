@@ -15,16 +15,16 @@
 
 #include "Awesomium/Surface.h"
 #include "coregraphics/texture.h"
+#include "Awesomium\BitmapSurface.h"
 
 namespace AwesomiumUI
 {
-class AwesomiumSurface : public Awesomium::Surface
+class AwesomiumSurface : public Awesomium::BitmapSurface
 {
 public:
 	AwesomiumSurface(int width, int height);
 	~AwesomiumSurface();
 
-	const Math::rectangle<int>& GetScissor();
 	Ptr<CoreGraphics::Texture>& GetTexture();
 
 	virtual void Paint(unsigned char* src_buffer, int src_row_span, const Awesomium::Rect& src_rect, const Awesomium::Rect& dest_rect) override;
@@ -33,13 +33,7 @@ public:
 
 private:
 	Ptr<CoreGraphics::Texture> texture;
-	Math::rectangle<int> scissor;
 };
-
-inline const Math::rectangle<int>& AwesomiumSurface::GetScissor()
-{
-	return this->scissor;
-}
 
 inline Ptr<CoreGraphics::Texture>& AwesomiumSurface::GetTexture()
 {

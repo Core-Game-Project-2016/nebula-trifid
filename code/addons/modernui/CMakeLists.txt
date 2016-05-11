@@ -27,6 +27,8 @@ set(SOURCES_files_modernui__awesomium
 	awesomium/awesomiumsurfacefactory.h
 	awesomium/awesomiumjsmethodhandler.cc
 	awesomium/awesomiumjsmethodhandler.h
+	awesomium/awesomiumviewlistener.cc
+	awesomium/awesomiumviewlistener.h
 )
 source_group("modernui\\awesomium" FILES ${SOURCES_files_modernui__awesomium})
 
@@ -64,7 +66,7 @@ TARGET_LINK_LIBRARIES(modernui PUBLIC render application)
 
 ADD_DEPENDENCIES(modernui faudio render)
 
-TARGET_INCLUDE_DIRECTORIES(modernui PUBLIC ${Nebula3_SOURCE_DIR}/code/extlibs/awesomium/include/ ${Nebula3_SOURCE_DIR}/code/addons)
+TARGET_INCLUDE_DIRECTORIES(modernui PUBLIC ${AWESOMIUM_INCLUDE} ${Nebula3_SOURCE_DIR}/code/addons)
 TARGET_COMPILE_DEFINITIONS(modernui PUBLIC __AWESOMIUM__)
 TARGET_LINK_LIBRARIES(modernui INTERFACE awesomium)
 SET_TARGET_PROPERTIES(modernui PROPERTIES FOLDER "N3SDK/addons")

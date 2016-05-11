@@ -5,6 +5,7 @@
 //------------------------------------------------------------------------------
 #include "stdneb.h"
 #include "input/key.h"
+#include "Awesomium\WebKeyboardCodes.h"
 
 namespace Input
 {
@@ -334,6 +335,164 @@ Key::ToDirectInput(Code key)
 	return 0;
 }
 
+//------------------------------------------------------------------------------
+/**
+*/
+uint
+Key::ToAwesomium(Code key)
+{
+	switch (key)
+	{
+
+	case Space:         return Awesomium::KeyCodes::AK_SPACE;
+	case Key0:          return Awesomium::KeyCodes::AK_0;
+	case Key1:          return Awesomium::KeyCodes::AK_1;
+	case Key2:          return Awesomium::KeyCodes::AK_2;
+	case Key3:          return Awesomium::KeyCodes::AK_3;
+	case Key4:          return Awesomium::KeyCodes::AK_4;
+	case Key5:          return Awesomium::KeyCodes::AK_5;
+	case Key6:          return Awesomium::KeyCodes::AK_6;
+	case Key7:          return Awesomium::KeyCodes::AK_7;
+	case Key8:          return Awesomium::KeyCodes::AK_8;
+	case Key9:          return Awesomium::KeyCodes::AK_9;
+	case A:             return Awesomium::KeyCodes::AK_A;
+	case B:             return Awesomium::KeyCodes::AK_B;
+	case C:             return Awesomium::KeyCodes::AK_C;
+	case D:             return Awesomium::KeyCodes::AK_D;
+	case E:             return Awesomium::KeyCodes::AK_E;
+	case F:             return Awesomium::KeyCodes::AK_F;
+	case G:             return Awesomium::KeyCodes::AK_G;
+	case H:             return Awesomium::KeyCodes::AK_H;
+	case I:             return Awesomium::KeyCodes::AK_I;
+	case J:             return Awesomium::KeyCodes::AK_J;
+	case K:             return Awesomium::KeyCodes::AK_K;
+	case L:             return Awesomium::KeyCodes::AK_L;
+	case M:             return Awesomium::KeyCodes::AK_M;
+	case N:             return Awesomium::KeyCodes::AK_N;
+	case O:             return Awesomium::KeyCodes::AK_O;
+	case P:             return Awesomium::KeyCodes::AK_P;
+	case Q:             return Awesomium::KeyCodes::AK_Q;
+	case R:             return Awesomium::KeyCodes::AK_R;
+	case S:             return Awesomium::KeyCodes::AK_S;
+	case T:             return Awesomium::KeyCodes::AK_T;
+	case U:             return Awesomium::KeyCodes::AK_U;
+	case V:             return Awesomium::KeyCodes::AK_V;
+	case W:             return Awesomium::KeyCodes::AK_W;
+	case X:             return Awesomium::KeyCodes::AK_X;
+	case Y:             return Awesomium::KeyCodes::AK_Y;
+	case Z:             return Awesomium::KeyCodes::AK_Z;
+	case Semicolon:		return Awesomium::KeyCodes::AK_OEM_1;
+	case Add:			return Awesomium::KeyCodes::AK_OEM_PLUS;
+	case Comma:			return Awesomium::KeyCodes::AK_OEM_COMMA;
+	case Subtract:		return Awesomium::KeyCodes::AK_OEM_MINUS;
+	case Period:		return Awesomium::KeyCodes::AK_OEM_PERIOD;
+	case Slash:			return Awesomium::KeyCodes::AK_OEM_2;
+	case Tilde:			return Awesomium::KeyCodes::AK_OEM_3;
+	case LeftBracket:	return Awesomium::KeyCodes::AK_OEM_4;
+	case BackSlash:		return Awesomium::KeyCodes::AK_OEM_5;
+	case RightBracket:	return Awesomium::KeyCodes::AK_OEM_6;
+	case Quote:			return Awesomium::KeyCodes::AK_OEM_7;
+
+
+	case NumPad0:       return Awesomium::KeyCodes::AK_NUMPAD0;
+	case NumPad1:       return Awesomium::KeyCodes::AK_NUMPAD1;
+	case NumPad2:       return Awesomium::KeyCodes::AK_NUMPAD2;
+	case NumPad3:       return Awesomium::KeyCodes::AK_NUMPAD3;
+	case NumPad4:       return Awesomium::KeyCodes::AK_NUMPAD4;
+	case NumPad5:       return Awesomium::KeyCodes::AK_NUMPAD5;
+	case NumPad6:       return Awesomium::KeyCodes::AK_NUMPAD6;
+	case NumPad7:       return Awesomium::KeyCodes::AK_NUMPAD7;
+	case NumPad8:       return Awesomium::KeyCodes::AK_NUMPAD8;
+	case NumPad9:       return Awesomium::KeyCodes::AK_NUMPAD9;
+
+	case Back:			return Awesomium::KeyCodes::AK_BACK;
+	case Tab:			return Awesomium::KeyCodes::AK_TAB;
+	case Clear:			return Awesomium::KeyCodes::AK_CLEAR;
+	case Return:		return Awesomium::KeyCodes::AK_RETURN;
+	case Pause:			return Awesomium::KeyCodes::AK_PAUSE;
+	case Capital:		return Awesomium::KeyCodes::AK_CAPITAL;
+
+	case Escape:		return Awesomium::KeyCodes::AK_ESCAPE;
+
+	case Prior:			return Awesomium::KeyCodes::AK_PRIOR;
+	case Next:			return Awesomium::KeyCodes::AK_NEXT;
+	case End:			return Awesomium::KeyCodes::AK_END;
+	case Home:			return Awesomium::KeyCodes::AK_HOME;
+	case Left:			return Awesomium::KeyCodes::AK_LEFT;
+	case Up:			return Awesomium::KeyCodes::AK_UP;
+	case Right:			return Awesomium::KeyCodes::AK_RIGHT;
+	case Down:			return Awesomium::KeyCodes::AK_DOWN;
+	case Select:		return Awesomium::KeyCodes::AK_SELECT;
+	case Print:			return Awesomium::KeyCodes::AK_PRINT;
+	case Execute:		return Awesomium::KeyCodes::AK_EXECUTE;
+	case Snapshot:		return Awesomium::KeyCodes::AK_SNAPSHOT;
+	case Insert:		return Awesomium::KeyCodes::AK_INSERT;
+	case Delete:		return Awesomium::KeyCodes::AK_DELETE;
+	case Help:			return Awesomium::KeyCodes::AK_HELP;
+	case LeftWindows:	return Awesomium::KeyCodes::AK_LWIN;
+	case RightWindows:	return Awesomium::KeyCodes::AK_RWIN;
+	case Apps:			return Awesomium::KeyCodes::AK_APPS;
+
+	case Sleep:			return Awesomium::KeyCodes::AK_SLEEP;
+
+	case F1:			return Awesomium::KeyCodes::AK_F1;
+	case F2:			return Awesomium::KeyCodes::AK_F2;
+	case F3:			return Awesomium::KeyCodes::AK_F3;
+	case F4:			return Awesomium::KeyCodes::AK_F4;
+	case F5:			return Awesomium::KeyCodes::AK_F5;
+	case F6:			return Awesomium::KeyCodes::AK_F6;
+	case F7:			return Awesomium::KeyCodes::AK_F7;
+	case F8:			return Awesomium::KeyCodes::AK_F8;
+	case F9:			return Awesomium::KeyCodes::AK_F9;
+	case F10:			return Awesomium::KeyCodes::AK_F10;
+	case F11:			return Awesomium::KeyCodes::AK_F11;
+	case F12:			return Awesomium::KeyCodes::AK_F12;
+	case F13:			return Awesomium::KeyCodes::AK_F13;
+	case F14:			return Awesomium::KeyCodes::AK_F14;
+	case F15:			return Awesomium::KeyCodes::AK_F15;
+	case F16:			return Awesomium::KeyCodes::AK_F16;
+	case F17:			return Awesomium::KeyCodes::AK_F17;
+	case F18:			return Awesomium::KeyCodes::AK_F18;
+	case F19:			return Awesomium::KeyCodes::AK_F19;
+	case F20:			return Awesomium::KeyCodes::AK_F10;
+	case F21:			return Awesomium::KeyCodes::AK_F21;
+	case F22:			return Awesomium::KeyCodes::AK_F22;
+	case F23:			return Awesomium::KeyCodes::AK_F23;
+	case F24:			return Awesomium::KeyCodes::AK_F24;
+
+	case NumLock:		return Awesomium::KeyCodes::AK_NUMLOCK;
+	case Scroll:		return Awesomium::KeyCodes::AK_SCROLL;
+
+	case LeftShift:		return Awesomium::KeyCodes::AK_LSHIFT;
+	case RightShift:	return Awesomium::KeyCodes::AK_RSHIFT;
+	case LeftControl:	return Awesomium::KeyCodes::AK_LCONTROL;
+	case RightControl:	return Awesomium::KeyCodes::AK_RCONTROL;
+	case LeftMenu:		return Awesomium::KeyCodes::AK_LMENU;
+	case RightMenu:		return Awesomium::KeyCodes::AK_RMENU;
+	case BrowserBack:	return Awesomium::KeyCodes::AK_BROWSER_BACK;
+	case BrowserForward:return Awesomium::KeyCodes::AK_BROWSER_FORWARD;
+	case BrowserRefresh:return Awesomium::KeyCodes::AK_BROWSER_REFRESH;
+	case BrowserStop:	return Awesomium::KeyCodes::AK_BROWSER_STOP;
+	case BrowserSearch:	return Awesomium::KeyCodes::AK_BROWSER_SEARCH;
+	case BrowserFavorites:return Awesomium::KeyCodes::AK_BROWSER_FAVORITES;
+	case BrowserHome:	return Awesomium::KeyCodes::AK_BROWSER_HOME;
+	case VolumeMute:	return Awesomium::KeyCodes::AK_VOLUME_MUTE;
+	case VolumeDown:	return Awesomium::KeyCodes::AK_VOLUME_DOWN;
+	case VolumeUp:		return Awesomium::KeyCodes::AK_VOLUME_UP;
+	case MediaNextTrack:return Awesomium::KeyCodes::AK_MEDIA_NEXT_TRACK;
+	case MediaPrevTrack:return Awesomium::KeyCodes::AK_MEDIA_PREV_TRACK;
+	case MediaStop:		return Awesomium::KeyCodes::AK_MEDIA_STOP;
+	case MediaPlayPause:return Awesomium::KeyCodes::AK_MEDIA_PLAY_PAUSE;
+	case LaunchMail:	return Awesomium::KeyCodes::AK_MEDIA_LAUNCH_MAIL;
+	case LaunchMediaSelect:return Awesomium::KeyCodes::AK_MEDIA_LAUNCH_MEDIA_SELECT;
+	case LaunchApp1:	return Awesomium::KeyCodes::AK_MEDIA_LAUNCH_APP1;
+	case LaunchApp2:	return Awesomium::KeyCodes::AK_MEDIA_LAUNCH_APP2;
+	default:
+		break;
+	}
+	//n_error("Invalid key code!");
+	return Awesomium::KeyCodes::AK_UNKNOWN;
+}
 
 //------------------------------------------------------------------------------
 /**

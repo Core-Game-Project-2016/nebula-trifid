@@ -153,7 +153,7 @@ void AwesomiumLayout::HandleInput(const Input::InputEvent& inputEvent)
 	{
 		Awesomium::WebKeyboardEvent kEvent;
 		kEvent.type = Awesomium::WebKeyboardEvent::Type::kTypeKeyDown;
-		kEvent.native_key_code = inputEvent.GetKey(); //TODO Convert to Awesomium Keycode
+		kEvent.virtual_key_code = Input::Key::ToAwesomium(inputEvent.GetKey());
 		this->view->InjectKeyboardEvent(kEvent);
 		break;
 	}
@@ -161,7 +161,7 @@ void AwesomiumLayout::HandleInput(const Input::InputEvent& inputEvent)
 	{
 		Awesomium::WebKeyboardEvent kEvent;
 		kEvent.type = Awesomium::WebKeyboardEvent::Type::kTypeKeyUp;
-		kEvent.native_key_code = inputEvent.GetKey(); //TODO Convert to Awesomium Keycode
+		kEvent.virtual_key_code = Input::Key::ToAwesomium(inputEvent.GetKey());
 		this->view->InjectKeyboardEvent(kEvent);
 		break;
 	}
@@ -169,7 +169,7 @@ void AwesomiumLayout::HandleInput(const Input::InputEvent& inputEvent)
 	{
 		Awesomium::WebKeyboardEvent kEvent;
 		kEvent.type = Awesomium::WebKeyboardEvent::Type::kTypeChar;
-		kEvent.native_key_code = inputEvent.GetKey();
+		kEvent.text[0] = inputEvent.GetChar();
 		this->view->InjectKeyboardEvent(kEvent);
 		break;
 	}

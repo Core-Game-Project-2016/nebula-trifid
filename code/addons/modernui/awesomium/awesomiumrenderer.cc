@@ -54,20 +54,10 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 
 	if (geometry)
 	{
-		try
+		AwesomiumSurface* surface = view->GetSurface();
+		if (surface)
 		{
-			AwesomiumSurface* surface = view->GetSurface();
-			if (surface)
-			{
-				Ptr<RenderDevice> device = RenderDevice::Instance();
-				device->SetScissorRect(surface->GetScissor(), 0);
-
-				this->diffMap->SetTexture(surface->GetTexture());
-			}
-		}
-		catch (...) // TODO REMOVE UGLY TEMP FIX
-		{
-			this->diffMap->SetTexture(this->whiteTexture->GetTexture());
+			this->diffMap->SetTexture(surface->GetTexture());
 		}
 
 		// apply shader

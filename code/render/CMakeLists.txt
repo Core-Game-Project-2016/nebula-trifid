@@ -1461,12 +1461,13 @@ SET_TARGET_PROPERTIES(render PROPERTIES FOLDER "N3SDK/N3")
 
 ADD_DEPENDENCIES(render foundation_NIDLS render_NIDLS )
 
-TARGET_INCLUDE_DIRECTORIES(render_NIDLS PUBLIC $<TARGET_PROPERTY:render,INTERFACE_INCLUDE_DIRECTORIES>)
+TARGET_INCLUDE_DIRECTORIES(render_NIDLS PUBLIC $<TARGET_PROPERTY:render,INTERFACE_INCLUDE_DIRECTORIES> $<$<BOOL:${N_BUILD_AWESOMIUM}>:${AWESOMIUM_INCLUDE}>)
 ADD_SUBDIRECTORY(jobs)
 TARGET_LINK_LIBRARIES(render PUBLIC render_animjobsample render_animjobsamplemix render_charevalskeletonjob render_particlejob render_visibilityboxsystemjob render_visibilityquadtreejob EASTL)
 
 
 TARGET_LINK_LIBRARIES(render PUBLIC $<$<BOOL:${N_BUILD_OGL4}>: DevIL ILU ILUT> )
+TARGET_LINK_LIBRARIES(render INTERFACE $<$<BOOL:${N_BUILD_AWESOMIUM}>:awesomium> )
 
 add_subdirectory(physics)
 
