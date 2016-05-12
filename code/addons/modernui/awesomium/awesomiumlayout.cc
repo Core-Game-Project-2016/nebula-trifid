@@ -145,6 +145,14 @@ void AwesomiumLayout::Resize(SizeT width, SizeT height)
 	//TODO: Implement
 }
 
+void AwesomiumLayout::InvokeJS(const char* function, const Awesomium::JSArray& args, const char* objectName)
+{
+	Awesomium::JSValue window = this->view->ExecuteJavascriptWithResult(Awesomium::WSLit(objectName), Awesomium::WSLit(""));
+
+	n_assert(window.IsObject());
+	window.ToObject().Invoke(Awesomium::WSLit(function), args);
+}
+
 void AwesomiumLayout::HandleInput(const Input::InputEvent& inputEvent)
 {
 	switch (inputEvent.GetType())
@@ -152,16 +160,20 @@ void AwesomiumLayout::HandleInput(const Input::InputEvent& inputEvent)
 	case Input::InputEvent::KeyDown:
 	{
 		Awesomium::WebKeyboardEvent kEvent;
+		Input::Key::Code key = inputEvent.GetKey();
+		kEvent.is_system_key = key == Input::Key::F10;
 		kEvent.type = Awesomium::WebKeyboardEvent::Type::kTypeKeyDown;
-		kEvent.virtual_key_code = Input::Key::ToAwesomium(inputEvent.GetKey());
+		kEvent.virtual_key_code = Input::Key::ToAwesomium(key);
 		this->view->InjectKeyboardEvent(kEvent);
 		break;
 	}
 	case Input::InputEvent::KeyUp:
 	{
 		Awesomium::WebKeyboardEvent kEvent;
+		Input::Key::Code key = inputEvent.GetKey();
+		kEvent.is_system_key = key == Input::Key::F10;
 		kEvent.type = Awesomium::WebKeyboardEvent::Type::kTypeKeyUp;
-		kEvent.virtual_key_code = Input::Key::ToAwesomium(inputEvent.GetKey());
+		kEvent.virtual_key_code = Input::Key::ToAwesomium(key);
 		this->view->InjectKeyboardEvent(kEvent);
 		break;
 	}

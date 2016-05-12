@@ -67,6 +67,9 @@ namespace AwesomiumUI
 		/// set focus or disable focus on layout
 		void SetFocus(bool focus);
 
+		///Default objects/functions for JS are stored in "window"
+		void InvokeJS(const char* function, const Awesomium::JSArray& args, const char* objectName = "window");
+
 		void HandleInput(const Input::InputEvent& inputEvent);
 
 		void CreateGlobalJSObject(const Util::String& name);
