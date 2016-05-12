@@ -27,8 +27,6 @@ set(SOURCES_files_modernui__awesomium
 	awesomium/awesomiumsurfacefactory.h
 	awesomium/awesomiumjsmethodhandler.cc
 	awesomium/awesomiumjsmethodhandler.h
-	awesomium/awesomiumviewlistener.cc
-	awesomium/awesomiumviewlistener.h
 )
 source_group("modernui\\awesomium" FILES ${SOURCES_files_modernui__awesomium})
 
