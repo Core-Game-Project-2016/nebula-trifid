@@ -82,11 +82,6 @@ namespace AwesomiumUI
 		const Math::float4& GetPosition() const;
 		NebulaGeometry* GetGeometry();
 
-		AwesomiumJSMethodHandler* GetMethodHandler()
-		{
-			return this->methodHandler;
-		}
-
 	private:
 		struct NebulaVertex
 		{
