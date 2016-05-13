@@ -119,54 +119,65 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 	Ptr<RenderDevice> device = RenderDevice::Instance();
 	Ptr<ShaderServer> shaderServer = ShaderServer::Instance();
 
-	if (view->GetType() == UIType::Hologram)
+	switch (view->GetType())
 	{
-		AwesomiumSurface* surface = view->GetSurface();
-		if (surface)
+		case UIType::Hologram:
 		{
-			this->hologramDiffMap->SetTexture(surface->GetTexture());
+			AwesomiumSurface* surface = view->GetSurface();
+			if (surface)
+			{
+				this->hologramDiffMap->SetTexture(surface->GetTexture());
+			}
+
+			// apply shader
+			shaderServer->SetActiveShader(this->hologramShader);
+			this->hologramShader->Apply();
+
+			matrix44 world = matrix44::scaling(float4(2.6f, 1.8f, 1.0f, 1.0f));//matrix44::translation(view->GetPosition());
+			//world.scale(float4(1.6f, 1.0f, 1.0f, 1.0f));
+			float4 pos = view->GetPosition();
+			pos.set_w(0.0f);
+			world.translate(pos);
+			matrix44 viewProjection = Graphics::GraphicsServer::Instance()->GetCurrentView()->GetCameraEntity()->GetCameraSettings().GetViewProjTransform();
+
+			this->hologramShader->BeginUpdate();
+			this->hologramViewProjVar->SetMatrix(viewProjection);
+			this->hologramModelVar->SetMatrix(world);
+			this->hologramShader->EndUpdate();
+
+			// commit shader
+			this->hologramShader->Commit();
+			break;
 		}
-
-		// apply shader
-		shaderServer->SetActiveShader(this->hologramShader);
-		this->hologramShader->Apply();
-
-		matrix44 world = matrix44::translation(view->GetPosition());
-		matrix44 viewProjection = Graphics::GraphicsServer::Instance()->GetCurrentView()->GetCameraEntity()->GetCameraSettings().GetViewProjTransform();
-
-		this->hologramShader->BeginUpdate();
-		this->hologramViewProjVar->SetMatrix(viewProjection);
-		this->hologramModelVar->SetMatrix(world);
-		this->hologramShader->EndUpdate();
-
-		// commit shader
-		this->hologramShader->Commit();
-	}
-	else if (view->GetType() == UIType::UI)
-	{
-		AwesomiumSurface* surface = view->GetSurface();
-		if (surface)
+		case UIType::UI:
 		{
-			this->uiDiffMap->SetTexture(surface->GetTexture());
+			AwesomiumSurface* surface = view->GetSurface();
+			if (surface)
+			{
+				this->uiDiffMap->SetTexture(surface->GetTexture());
+			}
+
+			// apply shader
+			shaderServer->SetActiveShader(this->uiShader);
+			this->uiShader->Apply();
+
+			matrix44 world = matrix44::translation(view->GetPosition());
+			Math::float4 pos = view->GetPosition();
+			matrix44 trans = matrix44::translation(float4(-1.0f, 1.0f, 0.0f, 0.0f));
+			matrix44 scale = matrix44::scaling(float4(2.0f, -2.0f, 1, 1));
+
+			world = matrix44::multiply(matrix44::multiply(world, scale), trans);
+
+			this->uiShader->BeginUpdate();
+			this->uiModelVar->SetMatrix(world);
+			this->uiShader->EndUpdate();
+
+			// commit shader
+			this->uiShader->Commit();
+			break;
 		}
-
-		// apply shader
-		shaderServer->SetActiveShader(this->uiShader);
-		this->uiShader->Apply();
-
-		matrix44 world = matrix44::translation(view->GetPosition());
-		Math::float4 pos = view->GetPosition();
-		matrix44 trans = matrix44::translation(float4(-1.0f, 1.0f, 0.0f, 0.0f));
-		matrix44 scale = matrix44::scaling(float4(2.0f, -2.0f, 1, 1));
-
-		world = matrix44::multiply(matrix44::multiply(world, scale), trans);
-
-		this->uiShader->BeginUpdate();
-		this->uiModelVar->SetMatrix(world);
-		this->uiShader->EndUpdate();
-
-		// commit shader
-		this->uiShader->Commit();
+		default:
+			break;
 	}
 
 	// setup render device and draw
