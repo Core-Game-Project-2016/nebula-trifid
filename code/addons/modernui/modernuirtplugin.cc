@@ -58,10 +58,7 @@ void
 ModernUiRTPlugin::OnRenderFrameBatch(const Ptr<Frame::FrameBatch>& frameBatch)
 {
 	n_assert(this->uiServer.isvalid());
-	if (CoreGraphics::FrameBatchType::UI == frameBatch->GetType())
-	{
-		this->uiServer->Render(frameBatch);	
-	}
+	this->uiServer->Render(frameBatch);	
 }
 
 //------------------------------------------------------------------------------

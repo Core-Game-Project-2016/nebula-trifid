@@ -70,10 +70,20 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 		matrix44 world = matrix44::translation(view->GetPosition());
 		matrix44 scale = matrix44::scaling(float4(2.0f, -2.0f, 1, 1));
 		//matrix44 scale = matrix44::scaling(float4(2.0f / (float)dimensions.x, -2.0f / (float)dimensions.y, 1, 1));
-		matrix44 trans = matrix44::translation(float4(-1, 1, 0, 0));
+		Math::float4 pos = view->GetPosition();
+		matrix44 trans = matrix44::translation(float4(pos.x() -1.0f, pos.y() + 1.0f, pos.z(), 0.0f));
 
 		// combine matrices and set in shader
-		world = matrix44::multiply(matrix44::multiply(world, scale), trans);
+		if (view->GetType() == UIType::Hologram)
+		{
+			matrix44 scale = matrix44::scaling(float4(8.0f, -8.0f, 1, 1));
+			world = matrix44::multiply(matrix44::multiply(matrix44::multiply(world, scale), trans), Graphics::GraphicsServer::Instance()->GetCurrentView()->GetCameraEntity()->GetCameraSettings().GetViewProjTransform());
+		}
+		else if (view->GetType() == UIType::UI)
+		{
+			world = matrix44::multiply(matrix44::multiply(world, scale), trans);
+		}
+
 		this->shader->BeginUpdate();
 		this->modelVar->SetMatrix(world);
 		this->shader->EndUpdate();

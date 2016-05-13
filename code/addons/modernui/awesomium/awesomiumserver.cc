@@ -27,11 +27,14 @@ AwesomiumServer::~AwesomiumServer()
 	__DestructSingleton;
 }
 
-AwesomiumLayout* AwesomiumServer::CreateView(const Util::String& name, uint width, uint height)
+AwesomiumLayout* AwesomiumServer::CreateView(const Util::String& name, uint width, uint height, UIType type)
 {
 	Ptr<AwesomiumLayout> view = AwesomiumLayout::Create();
-	view->Setup(this->webCore->CreateWebView(width, height));
-	this->views.Add(name, view);
+	view->Setup(this->webCore->CreateWebView(width, height), type);
+	if (type == UIType::UI)
+		this->views.Add(name, view);
+	else if (type == UIType::Hologram)
+		this->holograms.Add(name, view);
 
 	view->CreateGlobalJSObject("src");
 	for (SizeT i = 0; i < this->globalCallbackFunctions.Size(); i++)
@@ -50,14 +53,31 @@ void AwesomiumServer::Render(const Ptr<Frame::FrameBatch>& frameBatch)
 {
 	n_assert(this->renderer.isvalid());
 
-	this->Update();
-
-	for (int i = 0; i < this->views.Size(); i++)
+	if (CoreGraphics::FrameBatchType::UI == frameBatch->GetType())
 	{
-		const Ptr<AwesomiumUI::AwesomiumLayout>& view = this->views.ValueAtIndex(i);
-		if (view->IsVisible())
+		this->Update();
+
+		for (int i = 0; i < this->views.Size(); i++)
 		{
-			this->renderer->Render(view);
+			const Ptr<AwesomiumUI::AwesomiumLayout>& view = this->views.ValueAtIndex(i);
+			if (view->IsVisible())
+			{
+				this->renderer->Render(view);
+			}
+		}
+	}
+
+	if (CoreGraphics::FrameBatchType::Geometry == frameBatch->GetType())
+	{
+		this->Update();
+
+		for (int i = 0; i < this->holograms.Size(); i++)
+		{
+			const Ptr<AwesomiumUI::AwesomiumLayout>& view = this->holograms.ValueAtIndex(i);
+			if (view->IsVisible())
+			{
+				this->renderer->Render(view);
+			}
 		}
 	}
 }

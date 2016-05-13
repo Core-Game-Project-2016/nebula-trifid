@@ -44,7 +44,7 @@ namespace AwesomiumUI
 		AwesomiumServer();
 		~AwesomiumServer();
 
-		AwesomiumLayout* CreateView(const Util::String& name, uint width, uint height);
+		AwesomiumLayout* CreateView(const Util::String& name, uint width, uint height, UIType type = UIType::UI);
 		
 		void Update() const;
 		
@@ -65,6 +65,7 @@ namespace AwesomiumUI
 		Ptr<AwesomiumUI::AwesomiumRenderer> renderer;
 
 		Util::Dictionary<Util::String, Ptr<AwesomiumLayout>> views;
+		Util::Dictionary<Util::String, Ptr<AwesomiumLayout>> holograms;
 
 		Util::Dictionary<Util::String, CallbackFunction> globalCallbackFunctions;
 		Util::Dictionary<Util::String, CallbackReturnFunction> globalCallbackReturnFunctions;

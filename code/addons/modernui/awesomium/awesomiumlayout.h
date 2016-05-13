@@ -35,6 +35,12 @@ namespace AwesomiumUI
 		CoreGraphics::PrimitiveGroup primGroup;
 	};
 
+	enum class UIType
+	{
+		UI,
+		Hologram
+	};
+
 	class AwesomiumLayout : public Core::RefCounted
 	{
 		__DeclareClass(AwesomiumLayout);
@@ -47,7 +53,7 @@ namespace AwesomiumUI
 
 
 		AwesomiumLayout();
-		void Setup(Awesomium::WebView* view);
+		void Setup(Awesomium::WebView* view, UIType type);
 		~AwesomiumLayout();
 
 		/// returns true if the layout is visible
@@ -67,8 +73,12 @@ namespace AwesomiumUI
 		/// set focus or disable focus on layout
 		void SetFocus(bool focus);
 
-		///Default objects/functions for JS are stored in "window"
+		/// default objects/functions for JS are stored in "window"
 		void InvokeJS(const char* function, const Awesomium::JSArray& args, const char* objectName = "window");
+		/// set js variable with specified name
+		void SetJSProperty(const char* propertyName, const Awesomium::JSValue& value, const char* objectName = "window");
+		/// get js variable with specified name
+		Awesomium::JSValue GetJSProperty(const char* objectName, const char* propertyName);
 
 		void HandleInput(const Input::InputEvent& inputEvent);
 
@@ -79,8 +89,12 @@ namespace AwesomiumUI
 
 		AwesomiumSurface* GetSurface() const;
 
+		void SetPosition(const Math::float4& position);
 		const Math::float4& GetPosition() const;
+
 		NebulaGeometry* GetGeometry();
+
+		UIType GetType() const;
 
 	private:
 		struct NebulaVertex
@@ -89,9 +103,10 @@ namespace AwesomiumUI
 			float u, v;
 		};
 
-		void GenerateTexture();
 		void GenerateMesh();
 		
+		UIType type;
+
 		Util::Dictionary<Util::String, Awesomium::JSObject> objects;
 
 		Util::Dictionary<int, Util::Dictionary<Util::String, CallbackFunction>> callbackFunctions;
@@ -108,10 +123,20 @@ namespace AwesomiumUI
 	};
 
 
+	inline UIType AwesomiumLayout::GetType() const
+	{
+		return this->type;
+	}
+
 	inline void AwesomiumLayout::CreateGlobalJSObject(const Util::String& name)
 	{
 		Awesomium::JSObject object = this->view->CreateGlobalJavascriptObject(Awesomium::WSLit(name.Get())).ToObject();
 		this->objects.Add(name, object);
+	}
+
+	inline void AwesomiumLayout::SetPosition(const Math::float4& position)
+	{
+		this->position = position;
 	}
 
 	inline const Math::float4& AwesomiumLayout::GetPosition() const

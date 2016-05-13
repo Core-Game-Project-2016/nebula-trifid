@@ -86,7 +86,7 @@ void AwesomiumLayout::GenerateMesh()
 	this->geometry->primGroup.SetPrimitiveTopology(CoreGraphics::PrimitiveTopology::TriangleList);
 }
 
-void AwesomiumLayout::Setup(Awesomium::WebView* view)
+void AwesomiumLayout::Setup(Awesomium::WebView* view, UIType type)
 {
 	this->visible = true;
 	this->view = view;
@@ -98,6 +98,7 @@ void AwesomiumLayout::Setup(Awesomium::WebView* view)
 	this->methodHandler = new AwesomiumJSMethodHandler();
 	this->methodHandler->Setup(this);
 	this->view->set_js_method_handler(methodHandler);
+	this->type = type;
 }
 
 AwesomiumLayout::~AwesomiumLayout()
@@ -151,6 +152,22 @@ void AwesomiumLayout::InvokeJS(const char* function, const Awesomium::JSArray& a
 
 	n_assert(window.IsObject());
 	window.ToObject().Invoke(Awesomium::WSLit(function), args);
+}
+
+void AwesomiumLayout::SetJSProperty(const char* propertyName, const Awesomium::JSValue& value, const char* objectName)
+{
+	Awesomium::JSValue window = this->view->ExecuteJavascriptWithResult(Awesomium::WSLit(objectName), Awesomium::WSLit(""));
+
+	n_assert(window.IsObject());
+	window.ToObject().SetProperty(Awesomium::WSLit(propertyName), value);
+}
+
+Awesomium::JSValue AwesomiumLayout::GetJSProperty(const char* objectName, const char* propertyName)
+{
+	Awesomium::JSValue window = this->view->ExecuteJavascriptWithResult(Awesomium::WSLit(objectName), Awesomium::WSLit(""));
+
+	n_assert(window.IsObject());
+	return window.ToObject().GetProperty(Awesomium::WSLit(propertyName));
 }
 
 void AwesomiumLayout::HandleInput(const Input::InputEvent& inputEvent)
