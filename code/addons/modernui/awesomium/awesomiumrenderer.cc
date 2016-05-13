@@ -29,18 +29,88 @@ AwesomiumRenderer::AwesomiumRenderer()
 	this->renderDevice = RenderDevice::Instance();
 
 	// get shader and create instance
-	this->shader = shaderServer->GetShader("shd:modernui");
+	this->uiShader = shaderServer->GetShader("shd:modernui");
+	this->hologramShader = shaderServer->GetShader("shd:hologram");
 
-	// get texture
-	this->diffMap = this->shader->GetVariableByName("Texture");
-	this->modelVar = this->shader->GetVariableByName("Model");
+	this->uiDiffMap = this->uiShader->GetVariableByName("Texture");
+	this->uiModelVar = this->uiShader->GetVariableByName("Model");
 
-	this->whiteTexture = ResourceManager::Instance()->CreateManagedResource(Texture::RTTI, "tex:system/white.dds").downcast<ManagedTexture>();
+	this->hologramDiffMap = this->hologramShader->GetVariableByName("Texture");
+	this->hologramModelVar = this->hologramShader->GetVariableByName("Model");
+	this->hologramViewProjVar = this->hologramShader->GetVariableByName("ViewProjection");
+	this->GenerateMesh();
 }
 
 AwesomiumRenderer::~AwesomiumRenderer()
 {
 
+}
+
+void AwesomiumRenderer::GenerateMesh()
+{
+	this->geometry = static_cast<NebulaGeometry*>(Alloc(Memory::DefaultHeap, sizeof(NebulaGeometry)));
+	Memory::Clear(this->geometry, sizeof(NebulaGeometry));
+
+	// create vertex buffer
+	this->geometry->vb = CoreGraphics::VertexBuffer::Create();
+
+	Util::Array<CoreGraphics::VertexComponent> vertexComponents;
+	vertexComponents.Append(CoreGraphics::VertexComponent(static_cast<CoreGraphics::VertexComponent::SemanticName>(0), 0, CoreGraphics::VertexComponent::Float2));     // position
+	vertexComponents.Append(CoreGraphics::VertexComponent(static_cast<CoreGraphics::VertexComponent::SemanticName>(2), 0, CoreGraphics::VertexComponent::Float2));     // UV
+
+	int indices[] =
+	{
+		0, 1, 2,
+		2, 3, 0
+	};
+
+	NebulaVertex vertices[4] =
+	{
+		{ 0, 0, 0, 0 },
+		{ 0, 1, 0, 1 },
+		{ 1, 1, 1, 1 },
+		{ 1, 0, 1, 0 }
+	};
+
+	int numVertices = 4;
+	int numIndices = 6;
+
+	// create loader for vertex buffer
+	Ptr<CoreGraphics::MemoryVertexBufferLoader> vbLoader = CoreGraphics::MemoryVertexBufferLoader::Create();
+	vbLoader->Setup(vertexComponents,
+		numVertices,
+		vertices,
+		numVertices * sizeof(float) * 4,
+		Base::ResourceBase::UsageImmutable,
+		Base::ResourceBase::AccessNone);
+	this->geometry->vb->SetLoader(vbLoader.upcast<Resources::ResourceLoader>());
+	this->geometry->vb->SetAsyncEnabled(false);
+	this->geometry->vb->Load();
+	n_assert(this->geometry->vb->IsLoaded());
+	this->geometry->vb->SetLoader(0);
+
+	// create index buffer
+	this->geometry->ib = CoreGraphics::IndexBuffer::Create();
+
+	// create loader for index buffer
+	Ptr<CoreGraphics::MemoryIndexBufferLoader> ibLoader = CoreGraphics::MemoryIndexBufferLoader::Create();
+	ibLoader->Setup(CoreGraphics::IndexType::Index32,
+		numIndices,
+		indices,
+		numIndices * sizeof(int),
+		Base::ResourceBase::UsageImmutable,
+		Base::ResourceBase::AccessNone);
+	this->geometry->ib->SetLoader(ibLoader.upcast<Resources::ResourceLoader>());
+	this->geometry->ib->SetAsyncEnabled(false);
+	this->geometry->ib->Load();
+	n_assert(this->geometry->ib->IsLoaded());
+	this->geometry->ib->SetLoader(0);
+
+	this->geometry->primGroup.SetBaseIndex(0);
+	this->geometry->primGroup.SetNumVertices(numVertices);
+	this->geometry->primGroup.SetBaseVertex(0);
+	this->geometry->primGroup.SetNumIndices(numIndices);
+	this->geometry->primGroup.SetPrimitiveTopology(CoreGraphics::PrimitiveTopology::TriangleList);
 }
 
 void AwesomiumRenderer::Render(AwesomiumLayout* view)
@@ -49,55 +119,62 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 	Ptr<RenderDevice> device = RenderDevice::Instance();
 	Ptr<ShaderServer> shaderServer = ShaderServer::Instance();
 
-
-	NebulaGeometry* geometry = view->GetGeometry();
-
-	if (geometry)
+	if (view->GetType() == UIType::Hologram)
 	{
 		AwesomiumSurface* surface = view->GetSurface();
 		if (surface)
 		{
-			this->diffMap->SetTexture(surface->GetTexture());
+			this->hologramDiffMap->SetTexture(surface->GetTexture());
 		}
 
 		// apply shader
-		shaderServer->SetActiveShader(this->shader);
-		this->shader->Apply();
-
-		// get dimensions
-		//Rocket::Core::Vector2i dimensions = AwesomiumRenderer::Instance()->GetContext()->GetDimensions();
+		shaderServer->SetActiveShader(this->hologramShader);
+		this->hologramShader->Apply();
 
 		matrix44 world = matrix44::translation(view->GetPosition());
-		matrix44 scale = matrix44::scaling(float4(2.0f, -2.0f, 1, 1));
-		//matrix44 scale = matrix44::scaling(float4(2.0f / (float)dimensions.x, -2.0f / (float)dimensions.y, 1, 1));
-		Math::float4 pos = view->GetPosition();
-		matrix44 trans = matrix44::translation(float4(pos.x() -1.0f, pos.y() + 1.0f, pos.z(), 0.0f));
+		matrix44 viewProjection = Graphics::GraphicsServer::Instance()->GetCurrentView()->GetCameraEntity()->GetCameraSettings().GetViewProjTransform();
 
-		// combine matrices and set in shader
-		if (view->GetType() == UIType::Hologram)
-		{
-			matrix44 scale = matrix44::scaling(float4(8.0f, -8.0f, 1, 1));
-			world = matrix44::multiply(matrix44::multiply(matrix44::multiply(world, scale), trans), Graphics::GraphicsServer::Instance()->GetCurrentView()->GetCameraEntity()->GetCameraSettings().GetViewProjTransform());
-		}
-		else if (view->GetType() == UIType::UI)
-		{
-			world = matrix44::multiply(matrix44::multiply(world, scale), trans);
-		}
-
-		this->shader->BeginUpdate();
-		this->modelVar->SetMatrix(world);
-		this->shader->EndUpdate();
+		this->hologramShader->BeginUpdate();
+		this->hologramViewProjVar->SetMatrix(viewProjection);
+		this->hologramModelVar->SetMatrix(world);
+		this->hologramShader->EndUpdate();
 
 		// commit shader
-		this->shader->Commit();
-
-		// setup render device and draw
-		device->SetVertexLayout(geometry->vb->GetVertexLayout());
-		device->SetIndexBuffer(geometry->ib);
-		device->SetStreamSource(0, geometry->vb, 0);
-		device->SetPrimitiveGroup(geometry->primGroup);
-		device->Draw();
+		this->hologramShader->Commit();
 	}
+	else if (view->GetType() == UIType::UI)
+	{
+		AwesomiumSurface* surface = view->GetSurface();
+		if (surface)
+		{
+			this->uiDiffMap->SetTexture(surface->GetTexture());
+		}
+
+		// apply shader
+		shaderServer->SetActiveShader(this->uiShader);
+		this->uiShader->Apply();
+
+		matrix44 world = matrix44::translation(view->GetPosition());
+		Math::float4 pos = view->GetPosition();
+		matrix44 trans = matrix44::translation(float4(-1.0f, 1.0f, 0.0f, 0.0f));
+		matrix44 scale = matrix44::scaling(float4(2.0f, -2.0f, 1, 1));
+
+		world = matrix44::multiply(matrix44::multiply(world, scale), trans);
+
+		this->uiShader->BeginUpdate();
+		this->uiModelVar->SetMatrix(world);
+		this->uiShader->EndUpdate();
+
+		// commit shader
+		this->uiShader->Commit();
+	}
+
+	// setup render device and draw
+	device->SetVertexLayout(this->geometry->vb->GetVertexLayout());
+	device->SetIndexBuffer(this->geometry->ib);
+	device->SetStreamSource(0, this->geometry->vb, 0);
+	device->SetPrimitiveGroup(this->geometry->primGroup);
+	device->Draw();
 }
 
 }

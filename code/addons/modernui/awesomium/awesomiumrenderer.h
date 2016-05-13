@@ -20,6 +20,13 @@ namespace AwesomiumUI
 {
 class AwesomiumLayout;
 
+struct NebulaGeometry
+{
+	Ptr<CoreGraphics::VertexBuffer> vb;
+	Ptr<CoreGraphics::IndexBuffer> ib;
+	CoreGraphics::PrimitiveGroup primGroup;
+};
+
 class AwesomiumRenderer : public Core::RefCounted
 {
 	__DeclareClass(AwesomiumRenderer);
@@ -29,14 +36,26 @@ public:
 private:
 	AwesomiumRenderer();
 	~AwesomiumRenderer();
+	void GenerateMesh();
 
 private:
+	struct NebulaVertex
+	{
+		float x, y;
+		float u, v;
+	};
+
 	Ptr<CoreGraphics::RenderDevice> renderDevice;
-	Ptr<CoreGraphics::Shader> shader;
 
-	Ptr<CoreGraphics::ShaderVariable> diffMap;
-	Ptr<CoreGraphics::ShaderVariable> modelVar;
+	NebulaGeometry* geometry;
 
-	Ptr<Resources::ManagedTexture> whiteTexture;
+	Ptr<CoreGraphics::Shader> uiShader;
+	Ptr<CoreGraphics::ShaderVariable> uiDiffMap;
+	Ptr<CoreGraphics::ShaderVariable> uiModelVar;
+
+	Ptr<CoreGraphics::Shader> hologramShader;
+	Ptr<CoreGraphics::ShaderVariable> hologramDiffMap;
+	Ptr<CoreGraphics::ShaderVariable> hologramModelVar;
+	Ptr<CoreGraphics::ShaderVariable> hologramViewProjVar;
 };
 }

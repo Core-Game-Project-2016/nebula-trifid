@@ -28,13 +28,6 @@ namespace AwesomiumUI
 {
 	class AwesomiumServer;
 
-	struct NebulaGeometry
-	{
-		Ptr<CoreGraphics::VertexBuffer> vb;
-		Ptr<CoreGraphics::IndexBuffer> ib;
-		CoreGraphics::PrimitiveGroup primGroup;
-	};
-
 	enum class UIType
 	{
 		UI,
@@ -92,19 +85,9 @@ namespace AwesomiumUI
 		void SetPosition(const Math::float4& position);
 		const Math::float4& GetPosition() const;
 
-		NebulaGeometry* GetGeometry();
-
 		UIType GetType() const;
 
 	private:
-		struct NebulaVertex
-		{
-			float x, y;
-			float u, v;
-		};
-
-		void GenerateMesh();
-		
 		UIType type;
 
 		Util::Dictionary<Util::String, Awesomium::JSObject> objects;
@@ -115,7 +98,6 @@ namespace AwesomiumUI
 		Awesomium::WebView* view;
 		AwesomiumJSMethodHandler* methodHandler;
 
-		NebulaGeometry* geometry;
 		Math::float4 position;
 
 		bool hasFocus;
@@ -142,11 +124,6 @@ namespace AwesomiumUI
 	inline const Math::float4& AwesomiumLayout::GetPosition() const
 	{
 		return this->position;
-	}
-
-	inline NebulaGeometry* AwesomiumLayout::GetGeometry()
-	{
-		return this->geometry;
 	}
 
 	inline bool AwesomiumLayout::IsVisible() const

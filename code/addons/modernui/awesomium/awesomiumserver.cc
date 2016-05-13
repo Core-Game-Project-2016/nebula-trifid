@@ -67,7 +67,7 @@ void AwesomiumServer::Render(const Ptr<Frame::FrameBatch>& frameBatch)
 		}
 	}
 
-	if (CoreGraphics::FrameBatchType::Geometry == frameBatch->GetType())
+	if (CoreGraphics::FrameBatchType::Shapes == frameBatch->GetType())
 	{
 		this->Update();
 
