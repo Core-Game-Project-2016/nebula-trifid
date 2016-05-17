@@ -39,9 +39,9 @@ bool AwesomiumLayout::IsLoaded() const
 	return !this->view->IsLoading();
 }
 
-void AwesomiumLayout::LoadURL(const Util::String& URL) const
+void AwesomiumLayout::LoadURL(const IO::URI& URL) const
 {
-	Awesomium::WebURL url(Awesomium::WSLit(URL.Get()));
+	Awesomium::WebURL url(Awesomium::WSLit((URL.Scheme() + ":" + URL.GetHostAndLocalPath()).Get()));
 
 	n_assert(url.IsValid());
 

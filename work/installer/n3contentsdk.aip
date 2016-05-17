@@ -48,6 +48,7 @@
     <ROW Directory="addons_Dir" Directory_Parent="code_Dir" DefaultDir="addons"/>
     <ROW Directory="application_Dir" Directory_Parent="code_Dir" DefaultDir="applic~1|application"/>
     <ROW Directory="assets_Dir" Directory_Parent="work_Dir" DefaultDir="assets"/>
+    <ROW Directory="awesomium_Dir" Directory_Parent="modernui_Dir" DefaultDir="AWESOM~1|awesomium"/>
     <ROW Directory="basegameattr_Dir" Directory_Parent="basegamefeature_Dir" DefaultDir="basega~1|basegameattr"/>
     <ROW Directory="basegamefeature_Dir" Directory_Parent="application_Dir" DefaultDir="basega~1|basegamefeature"/>
     <ROW Directory="bin_Dir" Directory_Parent="APPDIR" DefaultDir="bin"/>
@@ -70,6 +71,7 @@
     <ROW Directory="lighting_Dir" Directory_Parent="assets_Dir" DefaultDir="lighting"/>
     <ROW Directory="materials_Dir" Directory_Parent="work_Dir" DefaultDir="MATERI~1|materials"/>
     <ROW Directory="minimap_Dir" Directory_Parent="addons_Dir" DefaultDir="minimap"/>
+    <ROW Directory="modernui_Dir" Directory_Parent="addons_Dir" DefaultDir="modernui"/>
     <ROW Directory="navigation_Dir" Directory_Parent="addons_Dir" DefaultDir="NAVIGA~1|navigation"/>
     <ROW Directory="physicsattr_Dir" Directory_Parent="physicsfeature_Dir" DefaultDir="physic~1|physicsattr"/>
     <ROW Directory="physicsfeature_Dir" Directory_Parent="application_Dir" DefaultDir="physic~1|physicsfeature"/>
@@ -99,6 +101,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="Add.ndv" ComponentId="{5D193C7B-7291-4520-BDBE-F44CEE041134}" Directory_="Math_Dir" Attributes="0" KeyPath="Add.ndv" Type="0"/>
+    <ROW Component="CMakeLists.txt" ComponentId="{C7CDEE93-E60C-4C13-B0DB-579E458F9E11}" Directory_="modernui_Dir" Attributes="0" KeyPath="CMakeLists.txt" Type="0"/>
     <ROW Component="Combine2.ndv" ComponentId="{123535D2-645B-4561-AF7A-D28A9F3364EC}" Directory_="Conversion_Dir" Attributes="0" KeyPath="Combine2.ndv" Type="0"/>
     <ROW Component="ConstantFloat.ndv" ComponentId="{93D34E34-AADC-4D6F-A649-E0B4C7CABF4F}" Directory_="Constants_Dir" Attributes="0" KeyPath="ConstantFloat.ndv" Type="0"/>
     <ROW Component="Default.ndv" ComponentId="{CAFC4D14-FB96-4D4E-84A6-DBE791A2728A}" Directory_="supervariations_Dir" Attributes="0" KeyPath="Default.ndv" Type="0"/>
@@ -124,6 +127,12 @@
     <ROW Component="assetbatcher.exe" ComponentId="{11EF7C5D-A493-4599-95BE-FEB2B78E4092}" Directory_="win32_Dir" Attributes="0" KeyPath="assetbatcher.exe"/>
     <ROW Component="audiobatcher3.exe" ComponentId="{7DEAA7E0-48DB-4AAB-8457-1329CC251F27}" Directory_="win32_Dir" Attributes="0" KeyPath="audiobatcher3.exe"/>
     <ROW Component="audioprotocol.nidl" ComponentId="{8CBB2C24-68BA-4F27-B02A-733AB6FE93D1}" Directory_="faudio_Dir" Attributes="0" KeyPath="audioprotocol.nidl" Type="0"/>
+    <ROW Component="avcodec53.dll" ComponentId="{2648ADBD-DE22-4D17-8481-7C61CBEB8A78}" Directory_="win32_Dir" Attributes="0" KeyPath="avcodec53.dll"/>
+    <ROW Component="avformat53.dll" ComponentId="{CB61F106-EDDB-4E6F-8BD6-E09DDDA119FF}" Directory_="win32_Dir" Attributes="0" KeyPath="avformat53.dll"/>
+    <ROW Component="avutil51.dll" ComponentId="{D559B375-8399-4703-B6E3-A518E8F82789}" Directory_="win32_Dir" Attributes="0" KeyPath="avutil51.dll"/>
+    <ROW Component="awesomium.dll" ComponentId="{35CE58AB-57B2-4E5B-A4A1-ACEBADC23569}" Directory_="win32_Dir" Attributes="0" KeyPath="awesomium.dll"/>
+    <ROW Component="awesomium_process.exe" ComponentId="{3DCF6AED-E0F6-4922-9468-D55DF85B8DB0}" Directory_="win32_Dir" Attributes="0" KeyPath="awesomium_process.exe"/>
+    <ROW Component="awesomiumelement.cc" ComponentId="{A0C5D4D4-5637-4D43-AA60-F2BFCA2F1CEB}" Directory_="awesomium_Dir" Attributes="0" KeyPath="awesomiumelement.cc" Type="0"/>
     <ROW Component="base.xml" ComponentId="{B5AF9C08-7E60-459C-BCE4-099C518873ED}" Directory_="materials_Dir" Attributes="0" KeyPath="base.xml" Type="0"/>
     <ROW Component="basegameattributes.nidl" ComponentId="{21948716-7E84-4B05-A03F-2ED09BCE38A9}" Directory_="basegameattr_Dir" Attributes="0" KeyPath="basegameattributes.nidl" Type="0"/>
     <ROW Component="basegamefeature" ComponentId="{0938BBBF-FE63-46AD-B427-2A91F4D89FD9}" Directory_="basegamefeature_Dir" Attributes="0"/>
@@ -147,9 +156,12 @@
     <ROW Component="gamebatcher3.exe" ComponentId="{777810EF-88E7-48B9-890E-CA3CB9BB5E30}" Directory_="win32_Dir" Attributes="0" KeyPath="gamebatcher3.exe"/>
     <ROW Component="glslheader.fxh" ComponentId="{FF2A0DDA-0500-418B-84E5-AA3DC266D681}" Directory_="templates_Dir" Attributes="0" KeyPath="glslheader.fxh" Type="0"/>
     <ROW Component="graphicsattributes.nidl" ComponentId="{7E834B4A-CF18-47F8-B3D3-16A814029500}" Directory_="graphicsattr_Dir" Attributes="0" KeyPath="graphicsattributes.nidl" Type="0"/>
+    <ROW Component="icudt.dll" ComponentId="{B41C89BC-3C6C-44C1-83FB-1D9B580A2B98}" Directory_="win32_Dir" Attributes="0" KeyPath="icudt.dll"/>
     <ROW Component="leveleditor2.exe" ComponentId="{B594F961-7217-480B-8470-538D7E71C542}" Directory_="win32_Dir" Attributes="0" KeyPath="leveleditor2.exe"/>
     <ROW Component="leveleditor2protocol.nidl" ComponentId="{44173FCF-EE4D-4F36-BF1B-333E23FE0C2C}" Directory_="leveleditor2_Dir" Attributes="0" KeyPath="leveleditor2protocol.nidl" Type="0"/>
     <ROW Component="levelviewer.exe" ComponentId="{6D5DB3E7-9228-4914-A235-4A5A7DE69032}" Directory_="win32_Dir" Attributes="0" KeyPath="levelviewer.exe"/>
+    <ROW Component="libEGL.dll" ComponentId="{DB7C28B3-D8A0-4A72-9B89-4AB5EFFBF73F}" Directory_="win32_Dir" Attributes="0" KeyPath="libEGL.dll"/>
+    <ROW Component="libGLESv2.dll" ComponentId="{3A346AF5-9074-4F7B-ADB9-CF2E54FE5D99}" Directory_="win32_Dir" Attributes="0" KeyPath="libGLESv2.dll"/>
     <ROW Component="lightcones.psd" ComponentId="{12444761-1CD9-4B8E-BE44-0EB0CEC85DBF}" Directory_="lighting_Dir" Attributes="0" KeyPath="lightcones.psd" Type="0"/>
     <ROW Component="minimap.nidl" ComponentId="{E5AC0E99-977D-4722-9934-2B94013CC6A7}" Directory_="minimap_Dir" Attributes="0" KeyPath="minimap.nidl" Type="0"/>
     <ROW Component="modelbatcher3.exe" ComponentId="{789BA362-8E4E-4914-9139-C63AA511071B}" Directory_="win32_Dir" Attributes="0" KeyPath="modelbatcher3.exe"/>
@@ -172,14 +184,16 @@
     <ROW Component="texturebatcher3.exe" ComponentId="{34BE017E-7E52-45C0-9D5D-612F7AD399E9}" Directory_="win32_Dir" Attributes="0" KeyPath="texturebatcher3.exe"/>
     <ROW Component="uiattributes.nidl" ComponentId="{B540BF4C-DB81-4ED6-A7A9-7ADED84EB149}" Directory_="uiattrs_Dir" Attributes="0" KeyPath="uiattributes.nidl" Type="0"/>
     <ROW Component="vecmath.lua" ComponentId="{2ED5648D-12E6-4C64-98F4-F33C59DF2F57}" Directory_="scripts_1_Dir" Attributes="0" KeyPath="vecmath.lua" Type="0"/>
+    <ROW Component="xinput9_1_0.dll" ComponentId="{BF8719A4-D0F7-4E2D-B292-0B1DD01291A0}" Directory_="win32_Dir" Attributes="0" KeyPath="xinput9_1_0.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="Add.ndv Combine2.ndv ConstantFloat.ndv Default.ndv DeliciousBold.otf Float.ndv GlobalLightColor.ndv Manufacturer NebulaTrifid PhysX3CHECKED_x86.dll PhysX3CharacterKinematicCHECKED_x86.dll PhysX3CommonCHECKED_x86.dll PhysX3Common_x86.dll PhysX3CookingCHECKED_x86.dll PhysX3Cooking_x86.dll Sample2D.ndv TexCoords.ndv Version animated.fx animated.fx_1 animeventcamshake.xml anims.xml archiver3.exe assetbatcher.exe audiobatcher3.exe audioprotocol.nidl base.xml basegameattributes.nidl basegamefeature basegameproperties.nidl batchexporter.exe bigbox.attributes blur_2d_cs.fxh box.attributes boxtap.fxh boxtap.fxh_1 cameraproperty.lua cbdefault.ini checker.tga contentbrowser.exe csmshadowmapping.xml effectsattributes.nidl fbxbatcher3.exe fmod.dll fmodstudio.dll gamebatch.dll gamebatcher3.exe glslheader.fxh graphicsattributes.nidl leveleditor2.exe leveleditor2protocol.nidl levelviewer.exe lightcones.psd minimap.nidl modelbatcher3.exe navigationattributes.nidl nvToolsExt32_1.dll path path1 physicsattributes.nidl physicsfeature projectinfo.xml projectwizard.exe scriptattributes.nidl scriptfeature scriptingprotocol.nidl setup.exe shaderbatcher.exe stateobjectprotocol.nidl surfacegenerator.exe test.ndp texturebatcher3.exe uiattributes.nidl vecmath.lua"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="Add.ndv CMakeLists.txt Combine2.ndv ConstantFloat.ndv Default.ndv DeliciousBold.otf Float.ndv GlobalLightColor.ndv Manufacturer NebulaTrifid PhysX3CHECKED_x86.dll PhysX3CharacterKinematicCHECKED_x86.dll PhysX3CommonCHECKED_x86.dll PhysX3Common_x86.dll PhysX3CookingCHECKED_x86.dll PhysX3Cooking_x86.dll Sample2D.ndv TexCoords.ndv Version animated.fx animated.fx_1 animeventcamshake.xml anims.xml archiver3.exe assetbatcher.exe audiobatcher3.exe audioprotocol.nidl avcodec53.dll avformat53.dll avutil51.dll awesomium.dll awesomium_process.exe awesomiumelement.cc base.xml basegameattributes.nidl basegamefeature basegameproperties.nidl batchexporter.exe bigbox.attributes blur_2d_cs.fxh box.attributes boxtap.fxh boxtap.fxh_1 cameraproperty.lua cbdefault.ini checker.tga contentbrowser.exe csmshadowmapping.xml effectsattributes.nidl fbxbatcher3.exe fmod.dll fmodstudio.dll gamebatch.dll gamebatcher3.exe glslheader.fxh graphicsattributes.nidl icudt.dll leveleditor2.exe leveleditor2protocol.nidl levelviewer.exe libEGL.dll libGLESv2.dll lightcones.psd minimap.nidl modelbatcher3.exe navigationattributes.nidl nvToolsExt32_1.dll path path1 physicsattributes.nidl physicsfeature projectinfo.xml projectwizard.exe scriptattributes.nidl scriptfeature scriptingprotocol.nidl setup.exe shaderbatcher.exe stateobjectprotocol.nidl surfacegenerator.exe test.ndp texturebatcher3.exe uiattributes.nidl vecmath.lua xinput9_1_0.dll"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
     <ROW File="Add.ndv" Component_="Add.ndv" FileName="Add.ndv" Attributes="0" SourcePath="work\shady\variations\Math\Add.ndv" SelfReg="false" NextFile="Cos.ndv"/>
     <ROW File="AnimEventEffects.xml" Component_="animeventcamshake.xml" FileName="ANIMEV~2.XML|AnimEventEffects.xml" Attributes="0" SourcePath="data\tables\db\AnimEventEffects.xml" SelfReg="false" NextFile="animeventsound.xml"/>
+    <ROW File="CMakeLists.txt" Component_="CMakeLists.txt" FileName="CMAKEL~1.TXT|CMakeLists.txt" Attributes="0" SourcePath="code\addons\modernui\CMakeLists.txt" SelfReg="false" NextFile="modernuiinputhandler.cc"/>
     <ROW File="CSM.fxh" Component_="boxtap.fxh" FileName="CSM.fxh" Attributes="0" SourcePath="work\shaders\fx\lib\CSM.fxh" SelfReg="false" NextFile="defaultsampler.fxh"/>
     <ROW File="CSM.fxh_1" Component_="blur_2d_cs.fxh" FileName="CSM.fxh" Attributes="0" SourcePath="work\shaders\gl\lib\CSM.fxh" SelfReg="false" NextFile="defaultsamplers.fxh"/>
     <ROW File="CSM.fxh_2" Component_="boxtap.fxh_1" FileName="CSM.fxh" Attributes="0" SourcePath="work\shady\supervariations\templates\lib\CSM.fxh" SelfReg="false" NextFile="defaultsamplers.fxh_1"/>
@@ -249,8 +263,29 @@
     <ROW File="audiobatcher3.exe" Component_="audiobatcher3.exe" FileName="audiob~1.exe|audiobatcher3.exe" Attributes="0" SourcePath="bin\win32\audiobatcher3.exe" SelfReg="false" NextFile="archiver3.exe" DigSign="true"/>
     <ROW File="audioprotocol.nidl" Component_="audioprotocol.nidl" FileName="AUDIOP~1.NID|audioprotocol.nidl" Attributes="0" SourcePath="code\addons\faudio\audioprotocol.nidl" SelfReg="false" NextFile="gamebatch.dll"/>
     <ROW File="authors.txt" Component_="projectinfo.xml" FileName="authors.txt" Attributes="0" SourcePath="authors.txt" SelfReg="false" NextFile="license.txt"/>
+    <ROW File="avcodec53.dll" Component_="avcodec53.dll" FileName="AVCODE~1.DLL|avcodec-53.dll" Attributes="0" SourcePath="bin\win32\avcodec-53.dll" SelfReg="false" NextFile="awesomium_process.exe"/>
     <ROW File="averagelum.fx" Component_="animated.fx" FileName="AVERAG~1.FX|averagelum.fx" Attributes="0" SourcePath="work\shaders\fx\averagelum.fx" SelfReg="false" NextFile="billboard.fx"/>
     <ROW File="averagelum.fx_1" Component_="animated.fx_1" FileName="AVERAG~1.FX|averagelum.fx" Attributes="0" SourcePath="work\shaders\gl\averagelum.fx" SelfReg="false" NextFile="billboard.fx_1"/>
+    <ROW File="avformat53.dll" Component_="avformat53.dll" FileName="AVFORM~1.DLL|avformat-53.dll" Attributes="0" SourcePath="bin\win32\avformat-53.dll" SelfReg="false" NextFile="awesomium.dll"/>
+    <ROW File="avutil51.dll" Component_="avutil51.dll" FileName="AVUTIL~1.DLL|avutil-51.dll" Attributes="0" SourcePath="bin\win32\avutil-51.dll" SelfReg="false" NextFile="avformat53.dll"/>
+    <ROW File="awesomium.dll" Component_="awesomium.dll" FileName="AWESOM~1.DLL|awesomium.dll" Attributes="0" SourcePath="bin\win32\awesomium.dll" SelfReg="false" NextFile="avcodec53.dll"/>
+    <ROW File="awesomium_process.exe" Component_="awesomium_process.exe" FileName="AWESOM~1.EXE|awesomium_process.exe" Attributes="0" SourcePath="bin\win32\awesomium_process.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="awesomiumelement.cc" Component_="awesomiumelement.cc" FileName="AWESOM~1.CC|awesomiumelement.cc" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumelement.cc" SelfReg="false" NextFile="awesomiumelement.h"/>
+    <ROW File="awesomiumelement.h" Component_="awesomiumelement.cc" FileName="AWESOM~1.H|awesomiumelement.h" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumelement.h" SelfReg="false" NextFile="awesomiumeventlistener.cc"/>
+    <ROW File="awesomiumeventlistener.cc" Component_="awesomiumelement.cc" FileName="AWESOM~2.CC|awesomiumeventlistener.cc" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumeventlistener.cc" SelfReg="false" NextFile="awesomiumeventlistener.h"/>
+    <ROW File="awesomiumeventlistener.h" Component_="awesomiumelement.cc" FileName="AWESOM~2.H|awesomiumeventlistener.h" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumeventlistener.h" SelfReg="false" NextFile="awesomiumjsmethodhandler.cc"/>
+    <ROW File="awesomiumjsmethodhandler.cc" Component_="awesomiumelement.cc" FileName="AWESOM~3.CC|awesomiumjsmethodhandler.cc" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumjsmethodhandler.cc" SelfReg="false" NextFile="awesomiumjsmethodhandler.h"/>
+    <ROW File="awesomiumjsmethodhandler.h" Component_="awesomiumelement.cc" FileName="AWESOM~3.H|awesomiumjsmethodhandler.h" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumjsmethodhandler.h" SelfReg="false" NextFile="awesomiumlayout.cc"/>
+    <ROW File="awesomiumlayout.cc" Component_="awesomiumelement.cc" FileName="AWESOM~4.CC|awesomiumlayout.cc" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumlayout.cc" SelfReg="false" NextFile="awesomiumlayout.h"/>
+    <ROW File="awesomiumlayout.h" Component_="awesomiumelement.cc" FileName="AWESOM~4.H|awesomiumlayout.h" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumlayout.h" SelfReg="false" NextFile="awesomiumrenderer.cc"/>
+    <ROW File="awesomiumrenderer.cc" Component_="awesomiumelement.cc" FileName="AWESOM~5.CC|awesomiumrenderer.cc" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumrenderer.cc" SelfReg="false" NextFile="awesomiumrenderer.h"/>
+    <ROW File="awesomiumrenderer.h" Component_="awesomiumelement.cc" FileName="AWESOM~5.H|awesomiumrenderer.h" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumrenderer.h" SelfReg="false" NextFile="awesomiumserver.cc"/>
+    <ROW File="awesomiumserver.cc" Component_="awesomiumelement.cc" FileName="AWESOM~6.CC|awesomiumserver.cc" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumserver.cc" SelfReg="false" NextFile="awesomiumserver.h"/>
+    <ROW File="awesomiumserver.h" Component_="awesomiumelement.cc" FileName="AWESOM~6.H|awesomiumserver.h" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumserver.h" SelfReg="false" NextFile="awesomiumsurface.cc"/>
+    <ROW File="awesomiumsurface.cc" Component_="awesomiumelement.cc" FileName="AWESOM~7.CC|awesomiumsurface.cc" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumsurface.cc" SelfReg="false" NextFile="awesomiumsurface.h"/>
+    <ROW File="awesomiumsurface.h" Component_="awesomiumelement.cc" FileName="AWESOM~7.H|awesomiumsurface.h" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumsurface.h" SelfReg="false" NextFile="awesomiumsurfacefactory.cc"/>
+    <ROW File="awesomiumsurfacefactory.cc" Component_="awesomiumelement.cc" FileName="AWESOM~8.CC|awesomiumsurfacefactory.cc" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumsurfacefactory.cc" SelfReg="false" NextFile="awesomiumsurfacefactory.h"/>
+    <ROW File="awesomiumsurfacefactory.h" Component_="awesomiumelement.cc" FileName="AWESOM~8.H|awesomiumsurfacefactory.h" Attributes="0" SourcePath="code\addons\modernui\awesomium\awesomiumsurfacefactory.h" SelfReg="false" NextFile="CMakeLists.txt"/>
     <ROW File="base.xml" Component_="base.xml" FileName="base.xml" Attributes="0" SourcePath="work\materials\base.xml" SelfReg="false" NextFile="test.ndp"/>
     <ROW File="basegameattributes.nidl" Component_="basegameattributes.nidl" FileName="basega~1.nid|basegameattributes.nidl" Attributes="0" SourcePath="code\application\basegamefeature\basegameattr\basegameattributes.nidl" SelfReg="false" NextFile="graphicsattributes.nidl"/>
     <ROW File="basegameproperties.nidl" Component_="basegameproperties.nidl" FileName="BASEGA~1.NID|basegameproperties.nidl" Attributes="0" SourcePath="code\application\basegamefeature\properties\basegameproperties.nidl" SelfReg="false" NextFile="scriptattributes.nidl"/>
@@ -397,6 +432,7 @@
     <ROW File="horizonambientocclusion.xml" Component_="csmshadowmapping.xml" FileName="HORIZO~1.XML|horizonambientocclusion.xml" Attributes="0" SourcePath="work\frame\win32\horizonambientocclusion.xml" SelfReg="false" NextFile="ogl4default.xml"/>
     <ROW File="horizontalbloom.fx" Component_="animated.fx" FileName="HORIZO~1.FX|horizontalbloom.fx" Attributes="0" SourcePath="work\shaders\fx\horizontalbloom.fx" SelfReg="false" NextFile="boxtap.fxh"/>
     <ROW File="horizontalbloom.fx_1" Component_="animated.fx_1" FileName="HORIZO~1.FX|horizontalbloom.fx" Attributes="0" SourcePath="work\shaders\gl\horizontalbloom.fx" SelfReg="false" NextFile="imgui.fx"/>
+    <ROW File="icudt.dll" Component_="icudt.dll" FileName="icudt.dll" Attributes="0" SourcePath="bin\win32\icudt.dll" SelfReg="false" NextFile="avutil51.dll"/>
     <ROW File="imgui.fx" Component_="animated.fx_1" FileName="imgui.fx" Attributes="0" SourcePath="work\shaders\gl\imgui.fx" SelfReg="false" NextFile="blur_2d_cs.fxh"/>
     <ROW File="interfaces.fxh" Component_="boxtap.fxh" FileName="INTERF~1.FXH|interfaces.fxh" Attributes="0" SourcePath="work\shaders\fx\lib\interfaces.fxh" SelfReg="false" NextFile="lightutils.fxh"/>
     <ROW File="layoutlist.rml" Component_="DeliciousBold.otf" FileName="LAYOUT~1.RML|layoutlist.rml" Attributes="0" SourcePath="data\levelviewer\layoutlist.rml" SelfReg="false" NextFile="levellist.lua"/>
@@ -406,6 +442,8 @@
     <ROW File="levellist.rcss" Component_="DeliciousBold.otf" FileName="LEVELL~1.RCS|levellist.rcss" Attributes="0" SourcePath="data\levelviewer\levellist.rcss" SelfReg="false" NextFile="levellist.rml"/>
     <ROW File="levellist.rml" Component_="DeliciousBold.otf" FileName="LEVELL~1.RML|levellist.rml" Attributes="0" SourcePath="data\levelviewer\levellist.rml" SelfReg="false" NextFile="vecmath.lua"/>
     <ROW File="levelviewer.exe" Component_="levelviewer.exe" FileName="levelv~1.exe|levelviewer.exe" Attributes="0" SourcePath="bin\win32\levelviewer.exe" SelfReg="false" NextFile="fmod.dll" DigSign="true"/>
+    <ROW File="libEGL.dll" Component_="libEGL.dll" FileName="libEGL.dll" Attributes="0" SourcePath="bin\win32\libEGL.dll" SelfReg="false" NextFile="icudt.dll"/>
+    <ROW File="libGLESv2.dll" Component_="libGLESv2.dll" FileName="LIBGLE~1.DLL|libGLESv2.dll" Attributes="0" SourcePath="bin\win32\libGLESv2.dll" SelfReg="false" NextFile="libEGL.dll"/>
     <ROW File="license.txt" Component_="projectinfo.xml" FileName="license.txt" Attributes="0" SourcePath="license.txt" SelfReg="false" NextFile="leveleditor2protocol.nidl"/>
     <ROW File="light.png" Component_="bigbox.attributes" FileName="light.png" Attributes="0" SourcePath="work\assets\system\light.png" SelfReg="false" NextFile="lightcones.psd_1"/>
     <ROW File="lightcones.psd" Component_="lightcones.psd" FileName="LIGHTC~1.PSD|lightcones.psd" Attributes="0" SourcePath="work\assets\lighting\lightcones.psd" SelfReg="false" NextFile="lightcones_debug.psd"/>
@@ -434,6 +472,10 @@
     <ROW File="miptest_256.dds" Component_="bigbox.attributes" FileName="MIPTES~1.DDS|miptest_256.dds" Attributes="0" SourcePath="work\assets\system\miptest_256.dds" SelfReg="false" NextFile="miptest_512.dds"/>
     <ROW File="miptest_512.dds" Component_="bigbox.attributes" FileName="MIPTES~2.DDS|miptest_512.dds" Attributes="0" SourcePath="work\assets\system\miptest_512.dds" SelfReg="false" NextFile="nebulalogo.png"/>
     <ROW File="modelbatcher3.exe" Component_="modelbatcher3.exe" FileName="modelb~1.exe|modelbatcher3.exe" Attributes="0" SourcePath="bin\win32\modelbatcher3.exe" SelfReg="false" NextFile="setup.exe" DigSign="true"/>
+    <ROW File="modernuiinputhandler.cc" Component_="CMakeLists.txt" FileName="MODERN~1.CC|modernuiinputhandler.cc" Attributes="0" SourcePath="code\addons\modernui\modernuiinputhandler.cc" SelfReg="false" NextFile="modernuiinputhandler.h"/>
+    <ROW File="modernuiinputhandler.h" Component_="CMakeLists.txt" FileName="MODERN~1.H|modernuiinputhandler.h" Attributes="0" SourcePath="code\addons\modernui\modernuiinputhandler.h" SelfReg="false" NextFile="modernuirtplugin.cc"/>
+    <ROW File="modernuirtplugin.cc" Component_="CMakeLists.txt" FileName="MODERN~2.CC|modernuirtplugin.cc" Attributes="0" SourcePath="code\addons\modernui\modernuirtplugin.cc" SelfReg="false" NextFile="modernuirtplugin.h"/>
+    <ROW File="modernuirtplugin.h" Component_="CMakeLists.txt" FileName="MODERN~2.H|modernuirtplugin.h" Attributes="0" SourcePath="code\addons\modernui\modernuirtplugin.h" SelfReg="false" NextFile="xinput9_1_0.dll"/>
     <ROW File="multilayered.fx" Component_="animated.fx" FileName="MULTIL~1.FX|multilayered.fx" Attributes="0" SourcePath="work\shaders\fx\multilayered.fx" SelfReg="false" NextFile="particle.fx"/>
     <ROW File="multilayered.fx_1" Component_="animated.fx_1" FileName="MULTIL~1.FX|multilayered.fx" Attributes="0" SourcePath="work\shaders\gl\multilayered.fx" SelfReg="false" NextFile="particle.fx_1"/>
     <ROW File="navigation.lua" Component_="cameraproperty.lua" FileName="NAVIGA~1.LUA|navigation.lua" Attributes="0" SourcePath="data\leveleditor\scripts\navigation.lua" SelfReg="false" NextFile="DeliciousBold.otf"/>
@@ -601,10 +643,11 @@
     <ROW File="volumefog.fx" Component_="animated.fx" FileName="VOLUME~1.FX|volumefog.fx" Attributes="0" SourcePath="work\shaders\fx\volumefog.fx" SelfReg="false" NextFile="water.fx"/>
     <ROW File="volumefog.fx_1" Component_="animated.fx_1" FileName="VOLUME~1.FX|volumefog.fx" Attributes="0" SourcePath="work\shaders\gl\volumefog.fx" SelfReg="false" NextFile="volumelight.fx"/>
     <ROW File="volumelight.fx" Component_="animated.fx_1" FileName="VOLUME~2.FX|volumelight.fx" Attributes="0" SourcePath="work\shaders\gl\volumelight.fx" SelfReg="false" NextFile="water.fx_1"/>
-    <ROW File="vsdepthtoz.fx" Component_="animated.fx_1" FileName="VSDEPT~1.FX|vsdepthtoz.fx" Attributes="0" SourcePath="work\shaders\gl\vsdepthtoz.fx" SelfReg="false"/>
+    <ROW File="vsdepthtoz.fx" Component_="animated.fx_1" FileName="VSDEPT~1.FX|vsdepthtoz.fx" Attributes="0" SourcePath="work\shaders\gl\vsdepthtoz.fx" SelfReg="false" NextFile="awesomiumelement.cc"/>
     <ROW File="water.fx" Component_="animated.fx" FileName="water.fx" Attributes="0" SourcePath="work\shaders\fx\water.fx" SelfReg="false" NextFile="lightcones.psd"/>
     <ROW File="water.fx_1" Component_="animated.fx_1" FileName="water.fx" Attributes="0" SourcePath="work\shaders\gl\water.fx" SelfReg="false" NextFile="nvToolsExt32_1.dll"/>
     <ROW File="white.dds" Component_="bigbox.attributes" FileName="white.dds" Attributes="0" SourcePath="work\assets\system\white.dds" SelfReg="false" NextFile="minimap.nidl"/>
+    <ROW File="xinput9_1_0.dll" Component_="xinput9_1_0.dll" FileName="XINPUT~1.DLL|xinput9_1_0.dll" Attributes="0" SourcePath="bin\win32\xinput9_1_0.dll" SelfReg="false" NextFile="libGLESv2.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
     <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="work\installer" PackageFileName="N3ContentSDK_[|ProductVersion]" Languages="en" InstallationType="4" UseLargeSchema="true"/>

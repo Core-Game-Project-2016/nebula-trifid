@@ -59,8 +59,8 @@ namespace AwesomiumUI
 		void Resize(SizeT width, SizeT height);
 		/// returns true if the layout is loaded
 		bool IsLoaded() const;
-		/// loads the specified url. use file://C:/ChickenNoodles for local paths
-		void LoadURL(const Util::String& URL) const;
+		/// loads the specified url.
+		void LoadURL(const IO::URI& URL) const;
 		/// returns true if the layout has focus
 		bool HasFocus() const;
 		/// set focus or disable focus on layout
