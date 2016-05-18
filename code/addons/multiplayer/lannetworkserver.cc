@@ -285,20 +285,23 @@ LanNetworkServer::HandlePacket(RakNet::Packet * packet)
 	
 
 	case ID_ADVERTISE_SYSTEM:		
-		if (rakPeer->GetSystemAddressFromGuid(packet->guid) == RakNet::UNASSIGNED_SYSTEM_ADDRESS &&
-			rakPeer->GetMyGUID() != packet->guid)
+		if (this->state != IN_GAME)
 		{
-			Util::String resp;
-			if (packet->length > 0)
+			if (rakPeer->GetSystemAddressFromGuid(packet->guid) == RakNet::UNASSIGNED_SYSTEM_ADDRESS &&
+				rakPeer->GetMyGUID() != packet->guid)
 			{
-				resp.Set((const char*)&packet->data[1], packet->length-1);
-				this->ParseServerResponse(resp);
-				NetworkGame::Instance()->ReceiveMasterList(this->masterResult);
+				Util::String resp;
+				if (packet->length > 0)
+				{
+					resp.Set((const char*)&packet->data[1], packet->length - 1);
+					this->ParseServerResponse(resp);
+					NetworkGame::Instance()->ReceiveMasterList(this->masterResult);
+				}
+
+				//printf("Connecting to %s\n", packet->systemAddress.ToString(true));
+				//rakPeer->Connect(packet->systemAddress.ToString(false), packet->systemAddress.GetPort(), 0, 0);
 			}
-			
-			//printf("Connecting to %s\n", packet->systemAddress.ToString(true));
-			//rakPeer->Connect(packet->systemAddress.ToString(false), packet->systemAddress.GetPort(), 0, 0);
-		}		
+		}
 		break;
 	case ID_READY_EVENT_ALL_SET:			
 		break;

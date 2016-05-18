@@ -133,16 +133,11 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 			shaderServer->SetActiveShader(this->hologramShader);
 			this->hologramShader->Apply();
 
-			matrix44 world = matrix44::scaling(float4(2.6f, 1.8f, 1.0f, 1.0f));//matrix44::translation(view->GetPosition());
-			//world.scale(float4(1.6f, 1.0f, 1.0f, 1.0f));
-			float4 pos = view->GetPosition();
-			pos.set_w(0.0f);
-			world.translate(pos);
-			matrix44 viewProjection = Graphics::GraphicsServer::Instance()->GetCurrentView()->GetCameraEntity()->GetCameraSettings().GetViewProjTransform();
+			const matrix44& viewProjection = Graphics::GraphicsServer::Instance()->GetCurrentView()->GetCameraEntity()->GetCameraSettings().GetViewProjTransform();
 
 			this->hologramShader->BeginUpdate();
 			this->hologramViewProjVar->SetMatrix(viewProjection);
-			this->hologramModelVar->SetMatrix(world);
+			this->hologramModelVar->SetMatrix(view->GetMatrix());
 			this->hologramShader->EndUpdate();
 
 			// commit shader
@@ -162,7 +157,6 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 			this->uiShader->Apply();
 
 			matrix44 world = matrix44::translation(view->GetPosition());
-			Math::float4 pos = view->GetPosition();
 			matrix44 trans = matrix44::translation(float4(-1.0f, 1.0f, 0.0f, 0.0f));
 			matrix44 scale = matrix44::scaling(float4(2.0f, -2.0f, 1, 1));
 

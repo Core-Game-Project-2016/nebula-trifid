@@ -82,6 +82,9 @@ namespace AwesomiumUI
 
 		AwesomiumSurface* GetSurface() const;
 
+		void SetTransform(const Math::matrix44& matrix);
+		const Math::matrix44& GetMatrix() const;
+
 		void SetPosition(const Math::float4& position);
 		const Math::float4& GetPosition() const;
 
@@ -98,7 +101,7 @@ namespace AwesomiumUI
 		Awesomium::WebView* view;
 		AwesomiumJSMethodHandler* methodHandler;
 
-		Math::float4 position;
+		Math::matrix44 matrix;
 
 		bool hasFocus;
 		bool visible;
@@ -116,14 +119,24 @@ namespace AwesomiumUI
 		this->objects.Add(name, object);
 	}
 
+	inline void AwesomiumLayout::SetTransform(const Math::matrix44& matrix)
+	{
+		this->matrix = matrix;
+	}
+
+	inline const Math::matrix44& AwesomiumLayout::GetMatrix() const
+	{
+		return this->matrix;
+	}
+
 	inline void AwesomiumLayout::SetPosition(const Math::float4& position)
 	{
-		this->position = position;
+		this->matrix.set_position(position);
 	}
 
 	inline const Math::float4& AwesomiumLayout::GetPosition() const
 	{
-		return this->position;
+		return this->matrix.get_position();
 	}
 
 	inline bool AwesomiumLayout::IsVisible() const

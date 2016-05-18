@@ -21,7 +21,7 @@ void AwesomiumLayout::Setup(Awesomium::WebView* view, UIType type)
 	//Keep CSS transparency
 	this->view->SetTransparent(true);
 	this->hasFocus = false;
-	this->position = Math::float4(0.0f, 0.0f, 0.0f, 1.0f);
+	this->matrix = Math::matrix44::identity();
 	this->methodHandler = new AwesomiumJSMethodHandler();
 	this->methodHandler->Setup(this);
 	this->view->set_js_method_handler(methodHandler);
