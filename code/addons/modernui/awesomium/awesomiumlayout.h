@@ -146,11 +146,13 @@ namespace AwesomiumUI
 
 	inline void AwesomiumLayout::Show()
 	{
+		this->view->ResumeRendering();
 		this->visible = true;
 	}
 
 	inline void AwesomiumLayout::Hide()
 	{
+		this->view->PauseRendering();
 		this->visible = false;
 	}
 }
