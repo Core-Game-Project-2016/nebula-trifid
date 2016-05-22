@@ -15,7 +15,8 @@ namespace AwesomiumUI
 
 	void AwesomiumSurfaceFactory::DestroySurface(Awesomium::Surface* surface)
 	{
-		delete surface;
+		//Uncomment once CoreGame::Texture::Unload() works;
+		//delete static_cast<AwesomiumSurface*>(surface);
 	}
 
 }

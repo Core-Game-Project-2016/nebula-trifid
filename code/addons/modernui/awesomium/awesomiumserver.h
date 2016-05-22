@@ -44,7 +44,7 @@ namespace AwesomiumUI
 		AwesomiumServer();
 		~AwesomiumServer();
 
-		AwesomiumLayout* CreateView(const Util::String& name, uint width, uint height, UIType type = UIType::UI);
+		AwesomiumLayout* CreateView(const Util::String& name, uint width = 800, uint height = 600, UIType type = UIType::UI);
 		
 		void Update() const;
 		
@@ -73,7 +73,10 @@ namespace AwesomiumUI
 
 	inline Ptr<AwesomiumLayout>& AwesomiumServer::GetView(const Util::String& name)
 	{
-		return this->views[name];
+		if (this->views.Contains(name))
+			return this->views[name];
+		else
+			return this->holograms[name];
 	}
 }
 

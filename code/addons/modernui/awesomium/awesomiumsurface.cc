@@ -22,7 +22,8 @@ namespace AwesomiumUI
 
 	AwesomiumSurface::~AwesomiumSurface()
 	{
-		this->texture = 0;
+		this->texture->Unload();
+		Awesomium::BitmapSurface::~BitmapSurface();
 	}
 
 	void AwesomiumSurface::Paint(unsigned char* src_buffer, int src_row_span, const Awesomium::Rect& src_rect, const Awesomium::Rect& dest_rect)

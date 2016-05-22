@@ -70,7 +70,7 @@ void AwesomiumLayout::SetFocus(bool focus)
 
 void AwesomiumLayout::Resize(SizeT width, SizeT height)
 {
-	//TODO: Implement
+	this->view->Resize(width, height);
 }
 
 void AwesomiumLayout::InvokeJS(const char* function, const Awesomium::JSArray& args, const char* objectName)
