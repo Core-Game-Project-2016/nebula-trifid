@@ -32,6 +32,7 @@ class AwesomiumRenderer : public Core::RefCounted
 	__DeclareClass(AwesomiumRenderer);
 public:
 	void Render(AwesomiumLayout* view);
+	void InstancedRender(AwesomiumLayout* view, const Util::Array<Math::matrix44>& matrices);
 
 private:
 	AwesomiumRenderer();
@@ -57,5 +58,10 @@ private:
 	Ptr<CoreGraphics::ShaderVariable> hologramDiffMap;
 	Ptr<CoreGraphics::ShaderVariable> hologramModelVar;
 	Ptr<CoreGraphics::ShaderVariable> hologramViewProjVar;
+
+	Ptr<CoreGraphics::Shader> hologramInstancedShader;
+	Ptr<CoreGraphics::ShaderVariable> hologramInstancedDiffMap;
+	Ptr<CoreGraphics::ShaderVariable> hologramInstancedViewProjVar;
+	Ptr<CoreGraphics::ShaderVariable> hologramInstancedModelArray;
 };
 }

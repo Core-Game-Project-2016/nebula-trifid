@@ -26,6 +26,7 @@ void AwesomiumLayout::Setup(Awesomium::WebView* view, UIType type)
 	this->methodHandler->Setup(this);
 	this->view->set_js_method_handler(methodHandler);
 	this->type = type;
+	this->instanced = false;
 }
 
 AwesomiumLayout::~AwesomiumLayout()
@@ -63,9 +64,15 @@ void AwesomiumLayout::SetFocus(bool focus)
 	this->hasFocus = focus;
 
 	if (focus)
+	{
 		this->view->Focus();
+		this->view->ActivateIME(true);
+	}
 	else
+	{
+		this->view->ActivateIME(false);
 		this->view->Unfocus();
+	}
 }
 
 void AwesomiumLayout::Resize(SizeT width, SizeT height)
@@ -77,7 +84,7 @@ void AwesomiumLayout::InvokeJS(const char* function, const Awesomium::JSArray& a
 {
 	Awesomium::JSValue window = this->view->ExecuteJavascriptWithResult(Awesomium::WSLit(objectName), Awesomium::WSLit(""));
 
-	n_assert(window.IsObject());
+	//n_assert(window.IsObject());
 	window.ToObject().Invoke(Awesomium::WSLit(function), args);
 }
 

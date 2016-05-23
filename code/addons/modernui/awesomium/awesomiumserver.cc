@@ -29,6 +29,11 @@ AwesomiumServer::~AwesomiumServer()
 
 AwesomiumLayout* AwesomiumServer::CreateView(const Util::String& name, uint width, uint height, UIType type)
 {
+	//if (this->views.Contains(name))
+	//	return this->views[name];
+	//else if(this->holograms.Contains(name))
+	//	return this->holograms[name];
+
 	Ptr<AwesomiumLayout> view = AwesomiumLayout::Create();
 	view->Setup(this->webCore->CreateWebView(width, height), type);
 	if (type == UIType::UI)
@@ -74,9 +79,25 @@ void AwesomiumServer::Render(const Ptr<Frame::FrameBatch>& frameBatch)
 		for (int i = 0; i < this->holograms.Size(); i++)
 		{
 			const Ptr<AwesomiumUI::AwesomiumLayout>& view = this->holograms.ValueAtIndex(i);
-			if (view->IsVisible())
+			if (view->IsVisible() && !view->IsInstanced())
 			{
 				this->renderer->Render(view);
+			}
+		}
+	}
+
+	if (CoreGraphics::FrameBatchType::Shapes == frameBatch->GetType())
+	{
+		this->Update();
+
+		for (int i = 0; i < this->instances.Size(); i++)
+		{
+			const Ptr<AwesomiumUI::AwesomiumLayout>& view = this->instances.KeyAtIndex(i);
+			const Util::Array<Math::matrix44>& matrices = this->instances.ValueAtIndex(i);
+
+			if (view->IsVisible() && view->IsInstanced())
+			{
+				this->renderer->InstancedRender(view, matrices);
 			}
 		}
 	}

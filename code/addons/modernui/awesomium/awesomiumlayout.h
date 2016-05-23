@@ -90,8 +90,12 @@ namespace AwesomiumUI
 
 		UIType GetType() const;
 
+		bool IsInstanced() const;
+
 	private:
 		UIType type;
+
+		bool instanced;
 
 		Util::Dictionary<Util::String, Awesomium::JSObject> objects;
 
@@ -107,6 +111,11 @@ namespace AwesomiumUI
 		bool visible;
 	};
 
+
+	inline bool AwesomiumLayout::IsInstanced() const
+	{
+		return this->instanced;
+	}
 
 	inline UIType AwesomiumLayout::GetType() const
 	{

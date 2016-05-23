@@ -30,14 +30,18 @@ AwesomiumRenderer::AwesomiumRenderer()
 
 	// get shader and create instance
 	this->uiShader = shaderServer->GetShader("shd:modernui");
-	this->hologramShader = shaderServer->GetShader("shd:hologram");
-
 	this->uiDiffMap = this->uiShader->GetVariableByName("Texture");
 	this->uiModelVar = this->uiShader->GetVariableByName("Model");
 
+	this->hologramShader = shaderServer->GetShader("shd:hologram");
 	this->hologramDiffMap = this->hologramShader->GetVariableByName("Texture");
 	this->hologramModelVar = this->hologramShader->GetVariableByName("Model");
 	this->hologramViewProjVar = this->hologramShader->GetVariableByName("ViewProjection");
+
+	this->hologramInstancedShader = shaderServer->GetShader("shd:holograminstanced");
+	this->hologramInstancedDiffMap = this->hologramInstancedShader->GetVariableByName("Texture");
+	this->hologramInstancedViewProjVar = this->hologramInstancedShader->GetVariableByName("ViewProjection");
+	this->hologramInstancedModelArray = this->hologramInstancedShader->GetVariableByName("ModelArray");
 	this->GenerateMesh();
 }
 
@@ -180,6 +184,38 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 	device->SetStreamSource(0, this->geometry->vb, 0);
 	device->SetPrimitiveGroup(this->geometry->primGroup);
 	device->Draw();
+}
+
+void AwesomiumRenderer::InstancedRender(AwesomiumLayout* view, const Util::Array<Math::matrix44>& matrices)
+{
+	Ptr<RenderDevice> device = RenderDevice::Instance();
+	Ptr<ShaderServer> shaderServer = ShaderServer::Instance();
+
+	AwesomiumSurface* surface = view->GetSurface();
+	if (surface)
+	{
+		this->hologramInstancedDiffMap->SetTexture(surface->GetTexture());
+	}
+
+	// apply shader
+	shaderServer->SetActiveShader(this->hologramInstancedShader);
+	this->hologramInstancedShader->Apply();
+
+	const matrix44& viewProjection = Graphics::GraphicsServer::Instance()->GetCurrentView()->GetCameraEntity()->GetCameraSettings().GetViewProjTransform();
+
+	this->hologramInstancedShader->BeginUpdate();
+	this->hologramInstancedViewProjVar->SetMatrix(viewProjection);
+	this->hologramInstancedModelArray->SetMatrixArray(&matrices[0], matrices.Size());
+	this->hologramInstancedShader->EndUpdate();
+
+	// commit shader
+	this->hologramInstancedShader->Commit();
+
+	device->SetVertexLayout(this->geometry->vb->GetVertexLayout());
+	device->SetIndexBuffer(this->geometry->ib);
+	device->SetStreamSource(0, this->geometry->vb, 0);
+	device->SetPrimitiveGroup(this->geometry->primGroup);
+	device->DrawIndexedInstanced(matrices.Size(), 0);
 }
 
 }

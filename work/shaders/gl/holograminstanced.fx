@@ -10,7 +10,7 @@ samplerstate TextureSampler
 	Samplers = { Texture };
 };
 
-mat4 Model;
+mat4 ModelArray[64];
 mat4 ViewProjection;
 
 state DefaultHologramState
@@ -24,12 +24,12 @@ state DefaultHologramState
 
 shader
 void
-vsMain(
+vsMainInstanced(
 	in vec3 position,
 	[slot=2] in vec2 uv,
 	out vec2 UV)
 {
-	gl_Position = ViewProjection * Model * vec4(position, 1);
+	gl_Position = ViewProjection * ModelArray[gl_InstanceID] * vec4(position, 1);
 	UV = uv;
 }
 
@@ -43,6 +43,4 @@ psMain(
 	FinalColor = texture(Texture, uv).bgra;
 }
 
-
-
-SimpleTechnique(Hologram, "Static", vsMain(), psMain(), DefaultHologramState);
+SimpleTechnique(HologramInstanced, "Static|Instanced", vsMainInstanced(), psMain(), DefaultHologramState);

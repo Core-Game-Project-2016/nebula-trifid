@@ -56,6 +56,8 @@ namespace AwesomiumUI
 
 		bool HandleInput(const Input::InputEvent& inputEvent);
 
+		void AddInstance(const Ptr<AwesomiumLayout>& layout, const Math::matrix44& matrix);
+
 		void RegisterGloabalFunctionCallback(Util::String functionName, CallbackFunction function);
 		void RegisterGloabalFunctionReturnCallback(Util::String functionName, CallbackReturnFunction function);
 	private:
@@ -66,6 +68,7 @@ namespace AwesomiumUI
 
 		Util::Dictionary<Util::String, Ptr<AwesomiumLayout>> views;
 		Util::Dictionary<Util::String, Ptr<AwesomiumLayout>> holograms;
+		Util::Dictionary<AwesomiumLayout*, Util::Array<Math::matrix44>> instances;
 
 		Util::Dictionary<Util::String, CallbackFunction> globalCallbackFunctions;
 		Util::Dictionary<Util::String, CallbackReturnFunction> globalCallbackReturnFunctions;
@@ -77,6 +80,17 @@ namespace AwesomiumUI
 			return this->views[name];
 		else
 			return this->holograms[name];
+	}
+
+	inline void AwesomiumServer::AddInstance(const Ptr<AwesomiumLayout>& layout, const Math::matrix44& matrix)
+	{
+		if (!this->instances.Contains(layout))
+		{
+			this->instances.Add(layout, Util::Array<Math::matrix44>());
+			layout->instanced = true;
+		}
+
+		this->instances[layout].Append(matrix);
 	}
 }
 
