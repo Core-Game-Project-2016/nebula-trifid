@@ -97,8 +97,10 @@ void AwesomiumServer::Render(const Ptr<Frame::FrameBatch>& frameBatch)
 
 			if (view->IsVisible() && view->IsInstanced())
 			{
-				this->renderer->InstancedRender(view, matrices);
+				if (matrices.Size() > 0)
+					this->renderer->InstancedRender(view, matrices);
 			}
+			this->instances.ValueAtIndex(i).Clear();
 		}
 	}
 }

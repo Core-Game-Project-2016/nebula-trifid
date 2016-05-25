@@ -22,13 +22,9 @@ namespace AwesomiumUI
 
 AwesomiumRenderer::AwesomiumRenderer()
 {
-	// get shader server
 	Ptr<ShaderServer> shaderServer = ShaderServer::Instance();
-
-	// set render device
 	this->renderDevice = RenderDevice::Instance();
 
-	// get shader and create instance
 	this->uiShader = shaderServer->GetShader("shd:modernui");
 	this->uiDiffMap = this->uiShader->GetVariableByName("Texture");
 	this->uiModelVar = this->uiShader->GetVariableByName("Model");
@@ -42,12 +38,28 @@ AwesomiumRenderer::AwesomiumRenderer()
 	this->hologramInstancedDiffMap = this->hologramInstancedShader->GetVariableByName("Texture");
 	this->hologramInstancedViewProjVar = this->hologramInstancedShader->GetVariableByName("ViewProjection");
 	this->hologramInstancedModelArray = this->hologramInstancedShader->GetVariableByName("ModelArray");
+
 	this->GenerateMesh();
 }
 
 AwesomiumRenderer::~AwesomiumRenderer()
 {
+	n_delete(geometry);
+	this->renderDevice = 0;
 
+	this->uiShader = 0;
+	this->uiDiffMap = 0;
+	this->uiModelVar = 0;
+
+	this->hologramShader = 0;
+	this->hologramDiffMap = 0;
+	this->hologramModelVar = 0;
+	this->hologramViewProjVar = 0;
+
+	this->hologramInstancedShader = 0;
+	this->hologramInstancedDiffMap = 0;
+	this->hologramInstancedViewProjVar = 0;
+	this->hologramInstancedModelArray = 0;
 }
 
 void AwesomiumRenderer::GenerateMesh()
@@ -119,10 +131,7 @@ void AwesomiumRenderer::GenerateMesh()
 
 void AwesomiumRenderer::Render(AwesomiumLayout* view)
 {
-	//Render View
-	Ptr<RenderDevice> device = RenderDevice::Instance();
 	Ptr<ShaderServer> shaderServer = ShaderServer::Instance();
-
 	switch (view->GetType())
 	{
 		case UIType::Hologram:
@@ -179,16 +188,15 @@ void AwesomiumRenderer::Render(AwesomiumLayout* view)
 	}
 
 	// setup render device and draw
-	device->SetVertexLayout(this->geometry->vb->GetVertexLayout());
-	device->SetIndexBuffer(this->geometry->ib);
-	device->SetStreamSource(0, this->geometry->vb, 0);
-	device->SetPrimitiveGroup(this->geometry->primGroup);
-	device->Draw();
+	this->renderDevice->SetVertexLayout(this->geometry->vb->GetVertexLayout());
+	this->renderDevice->SetIndexBuffer(this->geometry->ib);
+	this->renderDevice->SetStreamSource(0, this->geometry->vb, 0);
+	this->renderDevice->SetPrimitiveGroup(this->geometry->primGroup);
+	this->renderDevice->Draw();
 }
 
 void AwesomiumRenderer::InstancedRender(AwesomiumLayout* view, const Util::Array<Math::matrix44>& matrices)
 {
-	Ptr<RenderDevice> device = RenderDevice::Instance();
 	Ptr<ShaderServer> shaderServer = ShaderServer::Instance();
 
 	AwesomiumSurface* surface = view->GetSurface();
@@ -211,11 +219,11 @@ void AwesomiumRenderer::InstancedRender(AwesomiumLayout* view, const Util::Array
 	// commit shader
 	this->hologramInstancedShader->Commit();
 
-	device->SetVertexLayout(this->geometry->vb->GetVertexLayout());
-	device->SetIndexBuffer(this->geometry->ib);
-	device->SetStreamSource(0, this->geometry->vb, 0);
-	device->SetPrimitiveGroup(this->geometry->primGroup);
-	device->DrawIndexedInstanced(matrices.Size(), 0);
+	this->renderDevice->SetVertexLayout(this->geometry->vb->GetVertexLayout());
+	this->renderDevice->SetIndexBuffer(this->geometry->ib);
+	this->renderDevice->SetStreamSource(0, this->geometry->vb, 0);
+	this->renderDevice->SetPrimitiveGroup(this->geometry->primGroup);
+	this->renderDevice->DrawIndexedInstanced(matrices.Size(), 0);
 }
 
 }

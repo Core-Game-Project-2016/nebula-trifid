@@ -31,7 +31,7 @@ void AwesomiumLayout::Setup(Awesomium::WebView* view, UIType type)
 
 AwesomiumLayout::~AwesomiumLayout()
 {
-	delete this->methodHandler;
+	n_delete(this->methodHandler);
 	this->view->Destroy();
 }
 
