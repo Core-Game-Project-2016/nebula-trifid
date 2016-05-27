@@ -303,7 +303,7 @@ PhysXCharacter::OnFrameAfter()
 		heightDelta = - this->controller->getScene()->getGravity().magnitude() * fdelta;
 	}
 	Math::vector move = this->motionVector;
-	//move *= fdelta;
+	move *= fdelta;
 	move += Math::vector(0.0f, heightDelta, 0.0f);
 
 	PxControllerCollisionFlags res = this->controller->move(Neb2PxVec(move), 0.0f, fdelta, *this->filters);

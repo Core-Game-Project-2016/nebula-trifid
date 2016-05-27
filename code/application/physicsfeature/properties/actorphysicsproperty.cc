@@ -593,11 +593,10 @@ ActorPhysicsProperty::HandleMoveDirection(MoveDirection* msg)
     this->AutoEvade(dir);
     dir = vector::normalize(dir);
     */
-        
-    vector desiredVelocity = dir * this->GetEntity()->GetFloat(Attr::RelVelocity) * this->GetEntity()->GetFloat(Attr::MaxVelocity);
-	if (desiredVelocity.length() >  msg->GetMaxMovement())
+    vector desiredVelocity = dir * this->GetEntity()->GetFloat(Attr::RelVelocity);
+	if (desiredVelocity.length() >  this->GetEntity()->GetFloat(Attr::MaxVelocity))
 	{
-		desiredVelocity = Math::float4::normalize(desiredVelocity) *  msg->GetMaxMovement();
+		desiredVelocity = Math::float4::normalize(desiredVelocity) *  this->GetEntity()->GetFloat(Attr::MaxVelocity);
 	}
     this->charPhysicsEntity->SetMotionVector(desiredVelocity);
     this->GetEntity()->SetBool(Attr::Moving, true);
@@ -1067,7 +1066,7 @@ ActorPhysicsProperty::ContinueGoto()
 		__SendSync(this->entity, msg2);
         // just continue to go towards current segment position
         Ptr<MoveDirection> msg = MoveDirection::Create();
-        msg->SetDirection(targetVec);
+		msg->SetDirection(targetVec);
         msg->SetMaxMovement(dist);        
 		__SendSync(this->entity, msg);		
     }

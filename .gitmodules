@@ -37,10 +37,6 @@
 [submodule "code/extlibs/ogg"]
 	path = code/extlibs/ogg
 	url = https://github.com/xiph/ogg.git
-[submodule "projects/nebula-demo"]
-	path = projects/nebula-demo
-	url = https://github.com/gscept/nebula-demo.git
-	branch = master
 [submodule "code/extlibs/anyfx"]
 	path = code/extlibs/anyfx
 	url = https://github.com/Duttenheim/AnyFX.git
